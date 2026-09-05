@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedro Ferreira – Desenvolvedor Salesforce</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0052CC;
+            --primary-dark: #003DA5;
+            --secondary: #00A0DF;
+            --accent: #FF6B35;
+            --success: #34A853;
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --text-dark: #202124;
+            --text-muted: #5F6368;
+            --border: #DADCE0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #0052CC 0%, #00A0DF 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,82,204,0.15);
+            overflow: hidden;
+        }
+        
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 50px 30px;
+            text-align: center;
+        }
+        
+        .header .name {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .header .title {
+            font-size: 1.3em;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .header .contact {
+            font-size: 0.9em;
+            opacity: 0.85;
+            line-height: 1.8;
+        }
+        
+        .contact a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* CONTENT */
+        .content {
+            padding: 40px 30px;
+        }
+        
+        /* SUMMARY */
+        .summary {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--secondary);
+            line-height: 1.8;
+        }
+        
+        .summary h2 {
+            color: var(--primary);
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        /* SECTION */
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+        }
+        
+        /* EXPERIENCE */
+        .experience-item {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .job-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: var(--primary);
+            flex: 1;
+            margin-bottom: 5px;
+        }
+        
+        .job-period {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .job-company {
+            font-size: 0.95em;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .achievements {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .achievements li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+        
+        .achievements li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* SKILLS */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .skill-card {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,82,204,0.12);
+            border-left-color: var(--accent);
+        }
+        
+        .skill-card h3 {
+            color: var(--primary);
+            font-size: 0.95em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .skill-card p {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* CERTIFICATIONS */
+        .cert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .cert-item {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,82,204,0.15);
+        }
+        
+        .cert-item:before {
+            content: "✓";
+            font-size: 1.5em;
+            margin-right: 12px;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+        
+        /* EDUCATION & COMMUNITY */
+        .info-box {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .info-box strong {
+            color: var(--primary);
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: var(--bg-light);
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header .name {
+                font-size: 1.8em;
+            }
+            
+            .header .title {
+                font-size: 1.1em;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .job-header {
+                flex-direction: column;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cert-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* PRINT */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="name">PEDRO FERREIRA</div>
+            <div class="title">Desenvolvedor Salesforce Sênior | Arquiteto de Soluções Enterprise</div>
+            <div class="contact">
+                <a href="mailto:pferreira.dev0@gmail.com">pferreira.dev0@gmail.com</a> | 
+                <a href="tel:+5561992883797">+55 (61) 99288-3797</a> | 
+                <a href="https://github.com/PedFerreira">GitHub</a> | 
+                <a href="https://linkedin.com/in/pferreiravkt">LinkedIn</a>
+            </div>
+        </div>
+        
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- SUMMARY -->
+            <div class="summary">
+                <h2>Perfil Profissional</h2>
+                <p>Desenvolvedor Salesforce Sênior com 6+ anos projetando e implantando soluções enterprise. Expertise em arquitetura Apex, Lightning Web Components e integrações de APIs. Histórico comprovado de redução de 40% em incidentes críticos, otimização de sistemas gerenciando milhões de registros e mentoria de desenvolvedores com 2 promoções para posições mid-level.</p>
+            </div>
+            
+            <!-- PROFESSIONAL EXPERIENCE -->
+            <div class="section">
+                <h2 class="section-title">Experiência Profissional</h2>
+                
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Desenvolvedor Salesforce Sênior – OSF Digital</div>
+                        <div class="job-period">Out 2022 – Presente (3.4+ anos)</div>
+                    </div>
+                    <div class="job-company">Remoto</div>
+                    <ul class="achievements">
+                        <li>Arquiteto Trigger Framework com Bulkification e processamento async; otimizei batch noturno de 4+ horas para 45 minutos (81% de melhoria); redução de 40% em uso de CPU</li>
+                        <li>Projetei componentes LWC enterprise com caching e integração LMS servindo 5.000+ usuários; melhorei responsividade UI em 50%</li>
+                        <li>Implementei integrações APIs REST/SOAP reduzindo falhas de 8% para 1.2% com 99.7% de confiabilidade uptime</li>
+                        <li>Otimizei 50+ organizações de produção usando análise SOQL e indexação; redução de 40% no tempo de resposta a incidentes</li>
+                        <li>Estabeleci padrões com cobertura de testes 85%+ com pipeline CI/CD; redução de 45% em bugs de produção ano a ano</li>
+                        <li>Mentorizei 3 desenvolvedores juniores; promovi com sucesso 2 para posições mid-level</li>
+                    </ul>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Desenvolvedor Salesforce (Júnior → Mid-level) – Sottelli</div>
+                        <div class="job-period">Jan 2021 – Set 2022 (1.7 anos)</div>
+                    </div>
+                    <div class="job-company">Remoto</div>
+                    <ul class="achievements">
+                        <li>Promovido de estagiário a desenvolvedor júnior em 6 meses; rápido crescimento técnico e expertise em plataforma</li>
+                        <li>Desenvolvi 8+ features de produção com taxa de sucesso de deployment 99.9%</li>
+                        <li>Otimizei processos com Flow; economia de 3+ horas/semana por usuário; melhoria de adoção em 25%</li>
+                        <li>Contribuí a governança de segurança; redução de 70% em tentativas de acesso não autorizado</li>
+                        <li>Participei de code reviews e pair programming; rápida internalização de best practices em Apex e LWC</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- COMMUNITY & INNOVATION -->
+            <div class="section">
+                <h2 class="section-title">Comunidade & Inovação</h2>
+                <div class="info-box">
+                    <strong>Hackathon – OSF Digital Hackathon (2024):</strong> Desenvolvi sistema de priorização com IA usando Web-to-Case e NLP para analisar sentimento do cliente; automação de classificação de urgência (P1-P3); melhoria de 35% em conformidade SLA e tempo de primeira resposta.
+                </div>
+                <div class="info-box">
+                    <strong>Interesse Ativo:</strong> Buscando participação em Hackathons Salesforce Agentforce para expandir expertise em agentes IA autônomos e padrões de desenvolvimento agentic.
+                </div>
+            </div>
+            
+            <!-- CORE COMPETENCIES -->
+            <div class="section">
+                <h2 class="section-title">Competências Técnicas</h2>
+                <div class="skills-container">
+                    <div class="skill-card">
+                        <h3>Desenvolvimento Apex</h3>
+                        <p>Trigger Framework, Bulkification, Processamento Async, Otimização SOQL, Testes Apex, TDD</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Frontend</h3>
+                        <p>Lightning Web Components, Visualforce, Design Responsivo, Caching Client-side, LMS</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Integração e APIs</h3>
+                        <p>APIs REST/SOAP, Callouts Async, Tratamento de Erros, Platform Events, Change Data Capture</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Plataformas Salesforce</h3>
+                        <p>Sales Cloud, Service Cloud, Experience Cloud, Modelos de Segurança, Arquitetura</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>DevOps e Qualidade</h3>
+                        <p>Pipelines CI/CD, Git/GitHub, Copado, SFDX, Revisão de Código, Padrões de Design</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Performance</h3>
+                        <p>Governor Limits, Indexação de Banco, Otimização Query, Processamento Batch, Monitoramento</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CERTIFICATIONS -->
+            <div class="section">
+                <h2 class="section-title">Certificações Profissionais</h2>
+                <div class="cert-list">
+                    <div class="cert-item">Salesforce Certified Platform Developer II</div>
+                    <div class="cert-item">Salesforce Certified Platform Developer I</div>
+                    <div class="cert-item">Salesforce Certified AgentForce Specialist</div>
+                    <div class="cert-item">Salesforce Certified Platform Administrator</div>
+                    <div class="cert-item">Salesforce Certified Associate</div>
+                    <div class="cert-item">Salesforce AI Associate</div>
+                    <div class="cert-item">FM2S Lean Six Sigma Yellow Belt</div>
+                </div>
+            </div>
+            
+            <!-- EDUCATION -->
+            <div class="section">
+                <h2 class="section-title">Formação e Aprendizado</h2>
+                <div class="info-box">
+                    <strong>Bacharelado em Ciência – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: Dez 2026
+                </div>
+                <div class="info-box">
+                    <strong>Pós-graduação – Arquitetura de Software para Dados em Grande Escala</strong> | Em Progresso | 2027
+                </div>
+            </div>
+            
+            <!-- LANGUAGES -->
+            <div class="section">
+                <h2 class="section-title">Idiomas</h2>
+                <div class="info-box">
+                    <strong>Português:</strong> Nativo | <strong>Inglês:</strong> Avançado (Técnico & Profissional)
+                </div>
+            </div>
+        </div>
+        
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>Portfólio Online | Brasília, DF | Disponível para Trabalho Remoto Global</p>
+            <p>© 2026 Pedro Ferreira – Todos os Direitos Reservados</p>
+        </div>
+    </div>
+</body>
+</html>
