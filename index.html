@@ -7,801 +7,232 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg-void: #05060d;
-            --panel: rgba(255,255,255,0.045);
-            --panel-strong: rgba(255,255,255,0.08);
-            --border-glass: rgba(255,255,255,0.11);
-            --text-primary: #eef1fb;
-            --text-muted: #a1a8c9;
-            --text-dim: #6d759a;
-            --cyan: #4ee1ff;
-            --blue: #6a8bff;
-            --purple: #b26bff;
-            --magenta: #ff5ec8;
-            --success: #3ddc97;
-            --grad-brand: linear-gradient(120deg, var(--cyan), var(--blue) 55%, var(--purple));
-        }
-
-        html, body { height: 100%; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background: var(--bg-void);
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, .mono { font-family: 'Space Grotesk', -apple-system, sans-serif; }
-        .mono, .eyebrow, .job-period, .cert-item, .pill { font-family: 'JetBrains Mono', ui-monospace, monospace; }
-
-        a { color: var(--cyan); }
-
-        /* COSMOS BACKGROUND */
-        #cosmos-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            display: block;
-            background: radial-gradient(ellipse at 50% 20%, #0b1024 0%, #05060d 55%, #020208 100%);
-        }
-
-        .vignette {
-            position: fixed;
-            inset: 0;
-            z-index: 3;
-            pointer-events: none;
-            background: radial-gradient(ellipse at center, transparent 45%, rgba(2,2,8,0.65) 100%);
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            z-index: 50;
-            background: rgba(255,255,255,0.06);
-        }
-        .scroll-progress-bar {
-            height: 100%;
-            width: 100%;
-            transform: scaleX(0);
-            transform-origin: left;
-            background: var(--grad-brand);
-            box-shadow: 0 0 12px rgba(78,225,255,0.6);
-        }
-
-        /* GSAP SCROLLSMOOTHER REQUIRED SHELL — só vira "fixed" quando o smoother
-           realmente inicializa (JS adiciona .has-smoother); caso contrário,
-           mantém rolagem nativa normal (mobile / reduced-motion). */
-        #smooth-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-        html.has-smoother #smooth-wrapper {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-        }
-        #smooth-content {
-            width: 100%;
-            overflow: visible;
-        }
-        .page { perspective: 1400px; }
-
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px 24px;
-            position: relative;
-        }
-        .eyebrow {
-            font-size: 0.78em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--cyan);
-            margin-bottom: 18px;
-            opacity: 0.85;
-        }
-        .hero-name {
-            font-size: clamp(2.4em, 8vw, 5em);
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--text-primary);
-            filter: drop-shadow(0 0 30px rgba(90,140,255,0.35));
-            margin-bottom: 18px;
-        }
-        .hero-name .char {
-            background: var(--grad-brand);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .hero-title {
-            font-size: clamp(1.05em, 2.4vw, 1.4em);
-            color: var(--text-muted);
-            max-width: 700px;
-            margin-bottom: 36px;
-        }
-        .hero-contact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-        }
-        .pill {
-            font-size: 0.85em;
-            padding: 10px 20px;
-            border-radius: 999px;
-            background: var(--panel);
-            border: 1px solid var(--border-glass);
-            backdrop-filter: blur(12px) saturate(160%);
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.35s ease;
-        }
-        .pill:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 0 18px rgba(78,225,255,0.35);
-            transform: translateY(-2px);
-        }
-        .scroll-cue {
-            position: absolute;
-            bottom: 36px;
-            font-size: 0.72em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-        .scroll-cue span {
-            width: 1px;
-            height: 34px;
-            background: linear-gradient(var(--cyan), transparent);
-            animation: scrollcue 1.8s ease-in-out infinite;
-        }
-        @keyframes scrollcue {
-            0% { transform: scaleY(0.3); opacity: 0.2; }
-            50% { transform: scaleY(1); opacity: 1; }
-            100% { transform: scaleY(0.3); opacity: 0.2; }
-        }
-
-        /* PANELS (overlap / transition between sections) */
-        .panel {
-            position: relative;
-            margin-top: -48px;
-            padding: 110px 24px 90px;
-            border-radius: 44px 44px 0 0;
-            background: linear-gradient(180deg, rgba(9,11,22,0.35), rgba(6,8,16,0.82) 35%, rgba(5,6,13,0.94));
-            backdrop-filter: blur(22px) saturate(150%);
-            box-shadow: 0 -30px 90px rgba(0,0,0,0.55);
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-        .panel::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 12%; right: 12%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            opacity: 0.7;
-            filter: blur(0.5px);
-        }
-        .panel-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .section-title {
-            font-size: clamp(1.5em, 3vw, 2.1em);
-            font-weight: 600;
-            margin: 6px 0 40px;
-            letter-spacing: -0.5px;
-        }
-
-        /* GLASS */
-        .glass {
-            background: var(--panel);
-            border: 1px solid var(--border-glass);
-            border-radius: 18px;
-            backdrop-filter: blur(16px) saturate(160%);
-            box-shadow: 0 10px 34px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-        }
-
-        /* SUMMARY */
-        .summary-card {
-            padding: 32px;
-            border-left: 3px solid var(--cyan);
-            font-size: 1.05em;
-            color: var(--text-primary);
-        }
-
-        /* EXPERIENCE */
-        .timeline { display: flex; flex-direction: column; gap: 28px; }
-        .experience-item {
-            padding: 28px 32px;
-            border-left: 3px solid var(--blue);
-            transform-style: preserve-3d;
-        }
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-        }
-        .job-title {
-            font-size: 1.15em;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .job-period {
-            font-size: 0.8em;
-            color: var(--cyan);
-            white-space: nowrap;
-        }
-        .job-company {
-            font-size: 0.9em;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-        .achievements { list-style: none; }
-        .achievements li {
-            margin-bottom: 12px;
-            padding-left: 24px;
-            position: relative;
-            font-size: 0.95em;
-            color: var(--text-muted);
-        }
-        .achievements li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--cyan);
-            font-weight: bold;
-        }
-
-        /* SKILLS */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .skill-card {
-            padding: 24px;
-            border-top: 2px solid var(--purple);
-            overflow: hidden;
-            cursor: default;
-        }
-        .skill-card-inner h3 {
-            font-size: 0.95em;
-            font-weight: 600;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--cyan);
-        }
-        .skill-card-inner p {
-            font-size: 0.88em;
-            color: var(--text-muted);
-        }
-
-        /* CERTIFICATIONS */
-        .cert-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-        }
-        .cert-item {
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 0.88em;
-            font-weight: 500;
-        }
-        .cert-check {
-            flex: none;
-            width: 30px; height: 30px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            background: var(--grad-brand);
-            color: #05060d;
-            font-weight: 700;
-            box-shadow: 0 0 14px rgba(78,225,255,0.4);
-        }
-
-        /* INFO BOX */
-        .info-box {
-            padding: 22px 26px;
-            margin-bottom: 14px;
-            border-left: 3px solid var(--success);
-        }
-        .info-box strong { color: var(--cyan); }
-
-        /* FOOTER */
-        .footer {
-            text-align: center;
-            font-size: 0.85em;
-            color: var(--text-dim);
-            padding: 40px 24px 60px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .panel { padding: 80px 18px 60px; border-radius: 30px 30px 0 0; }
-            .job-header { flex-direction: column; }
-            .skills-container, .cert-list { grid-template-columns: 1fr; }
-        }
-
-        @media print {
-            #cosmos-canvas, .vignette, .scroll-progress { display: none; }
-            body { background: white; color: #111; }
-            .panel { background: white; box-shadow: none; backdrop-filter: none; }
-            .glass { background: #f4f4f4; border: 1px solid #ddd; }
-        }
-    </style>
-</head>
-<body>
-    <canvas id="cosmos-canvas"></canvas>
-    <div class="vignette"></div>
-    <div class="scroll-progress"><div class="scroll-progress-bar"></div></div>
-
-    <div id="smooth-wrapper">
-        <div id="smooth-content">
-            <div class="page">
-
-                <!-- HERO -->
-                <section class="hero" id="hero">
-                    <div class="eyebrow">Portfólio · Desenvolvedor Salesforce</div>
-                    <h1 class="hero-name">PEDRO FERREIRA</h1>
-                    <p class="hero-title">Desenvolvedor Salesforce Sênior | Arquitetura de Soluções &amp; Mentoria</p>
-                    <div class="hero-contact">
-                        <a class="pill" href="mailto:pferreira.dev0@gmail.com">pferreira.dev0@gmail.com</a>
-                        <a class="pill" href="tel:+5561992883797">+55 (61) 99288-3797</a>
-                        <a class="pill" href="https://github.com/PedFerreira" target="_blank" rel="noopener">GitHub</a>
-                        <a class="pill" href="https://linkedin.com/in/pferreiravkt" target="_blank" rel="noopener">LinkedIn</a>
-                    </div>
-                    <div class="scroll-cue"><span></span>Scroll</div>
-                </section>
-
-                <!-- PERFIL -->
-                <section class="panel" id="perfil">
-                    <div class="panel-inner">
-                        <div class="eyebrow">01 · Perfil</div>
-                        <h2 class="section-title">Perfil Profissional</h2>
-                        <div class="glass summary-card">
-                            <p>Desenvolvedor Salesforce Sênior com 5+ anos projetando e implantando soluções enterprise. Expertise em arquitetura Apex, Lightning Web Components e integrações de APIs. Histórico comprovado de redução de 40% em incidentes críticos, otimização de sistemas gerenciando milhões de registros e mentoria de desenvolvedores com 2 promoções para posições mid-level.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- EXPERIÊNCIA -->
-                <section class="panel" id="experiencia">
-                    <div class="panel-inner">
-                        <div class="eyebrow">02 · Trajetória</div>
-                        <h2 class="section-title">Experiência Profissional</h2>
-                        <div class="timeline">
-                            <div class="experience-item glass">
-                                <div class="job-header">
-                                    <div class="job-title">Desenvolvedor Salesforce Sênior – OSF Digital</div>
-                                    <div class="job-period">Out 2022 – Presente (3.9 anos)</div>
-                                </div>
-                                <div class="job-company">Remoto</div>
-                                <ul class="achievements">
-                                    <li>Arquiteto Trigger Framework com Bulkification e processamento async; otimizei batch noturno de 4+ horas para 45 minutos (81% de melhoria); redução de 40% em uso de CPU</li>
-                                    <li>Projetei componentes LWC enterprise com caching e integração LMS servindo 5.000+ usuários; melhorei responsividade UI em 50%</li>
-                                    <li>Implementei integrações APIs REST/SOAP reduzindo falhas de 8% para 1.2% com 99.7% de confiabilidade uptime</li>
-                                    <li>Otimizei 50+ organizações de produção usando análise SOQL e indexação; redução de 40% no tempo de resposta a incidentes</li>
-                                    <li>Estabeleci padrões com cobertura de testes 85%+ com pipeline CI/CD; redução de 45% em bugs de produção ano a ano</li>
-                                    <li>Mentorizei 3 desenvolvedores juniores; promovi com sucesso 2 para posições mid-level</li>
-                                </ul>
-                            </div>
-                            <div class="experience-item glass">
-                                <div class="job-header">
-                                    <div class="job-title">Desenvolvedor Salesforce (Júnior → Mid-level) – Sottelli</div>
-                                    <div class="job-period">Jan 2021 – Set 2022 (1.7 anos)</div>
-                                </div>
-                                <div class="job-company">Remoto</div>
-                                <ul class="achievements">
-                                    <li>Promovido de estagiário a desenvolvedor júnior em 6 meses; rápido crescimento técnico e expertise em plataforma</li>
-                                    <li>Desenvolvi 8+ features de produção com taxa de sucesso de deployment 99.9%</li>
-                                    <li>Otimizei processos com Flow; economia de 3+ horas/semana por usuário; melhoria de adoção em 25%</li>
-                                    <li>Contribuí a governança de segurança; redução de 70% em tentativas de acesso não autorizado</li>
-                                    <li>Participei de code reviews e pair programming; rápida internalização de best practices em Apex e LWC</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- COMUNIDADE -->
-                <section class="panel" id="comunidade">
-                    <div class="panel-inner">
-                        <div class="eyebrow">03 · Comunidade</div>
-                        <h2 class="section-title">Comunidade &amp; Inovação</h2>
-                        <div class="info-box glass">
-                            <strong>Hackathon – OSF Digital Hackathon (2024):</strong> Desenvolvi sistema de priorização com IA usando Web-to-Case e NLP para analisar sentimento do cliente; automação de classificação de urgência (P1-P3); melhoria de 35% em conformidade SLA e tempo de primeira resposta.
-                        </div>
-                        <div class="info-box glass">
-                            <strong>Interesse Ativo:</strong> Buscando participação em Hackathons Salesforce Agentforce para expandir expertise em agentes IA autônomos e padrões de desenvolvimento agentic.
-                        </div>
-                    </div>
-                </section>
-
-                <!-- COMPETÊNCIAS -->
-                <section class="panel" id="skills">
-                    <div class="panel-inner">
-                        <div class="eyebrow">04 · Competências</div>
-                        <h2 class="section-title">Competências Técnicas</h2>
-                        <div class="skills-container">
-                            <div class="skill-card glass">
-                                <div class="skill-card-inner">
-                                    <h3>Desenvolvimento Apex</h3>
-                                    <p>Trigger Framework, Bulkification, Processamento Async, Otimização SOQL, Testes Apex, TDD</p>
-                                </div>
-                            </div>
-                            <div class="skill-card glass">
-                                <div class="skill-card-inner">
-                                    <h3>Frontend</h3>
-                                    <p>Lightning Web Components, Visualforce, Design Responsivo, Caching Client-side, LMS</p>
-                                </div>
-                            </div>
-                            <div class="skill-card glass">
-                                <div class="skill-card-inner">
-                                    <h3>Integração e APIs</h3>
-                                    <p>APIs REST/SOAP, Callouts Async, Tratamento de Erros, Platform Events, Change Data Capture</p>
-                                </div>
-                            </div>
-                            <div class="skill-card glass">
-                                <div class="skill-card-inner">
-                                    <h3>Plataformas Salesforce</h3>
-                                    <p>Sales Cloud, Service Cloud, Experience Cloud, Modelos de Segurança, Arquitetura</p>
-                                </div>
-                            </div>
-                            <div class="skill-card glass">
-                                <div class="skill-card-inner">
-                                    <h3>DevOps e Qualidade</h3>
-                                    <p>Pipelines CI/CD, Git/GitHub, Copado, SFDX, Revisão de Código, Padrões de Design</p>
-                                </div>
-                            </div>
-                            <div class="skill-card glass">
-                                <div class="skill-card-inner">
-                                    <h3>Performance</h3>
-                                    <p>Governor Limits, Indexação de Banco, Otimização Query, Processamento Batch, Monitoramento</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- CERTIFICAÇÕES -->
-                <section class="panel" id="certs">
-                    <div class="panel-inner">
-                        <div class="eyebrow">05 · Certificações</div>
-                        <h2 class="section-title">Certificações Profissionais</h2>
-                        <div class="cert-list">
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Developer II</span></div>
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Developer I</span></div>
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified AgentForce Specialist</span></div>
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Administrator</span></div>
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Associate</span></div>
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce AI Associate</span></div>
-                            <div class="cert-item glass"><span class="cert-check">✓</span><span>FM2S Lean Six Sigma Yellow Belt</span></div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- FORMAÇÃO -->
-                <section class="panel" id="formacao">
-                    <div class="panel-inner">
-                        <div class="eyebrow">06 · Formação</div>
-                        <h2 class="section-title">Formação e Aprendizado</h2>
-                        <div class="info-box glass">
-                            <strong>Bacharelado em Ciência – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: Dez 2026
-                        </div>
-                        <div class="info-box glass">
-                            <strong>Pós-graduação – Arquitetura de Software para Dados em Grande Escala</strong> | Em Progresso | 2027
-                        </div>
-                    </div>
-                </section>
-
-                <!-- IDIOMAS -->
-                <section class="panel" id="idiomas">
-                    <div class="panel-inner">
-                        <div class="eyebrow">07 · Idiomas</div>
-                        <h2 class="section-title">Idiomas</h2>
-                        <div class="info-box glass">
-                            <strong>Português:</strong> Nativo &nbsp;|&nbsp; <strong>Inglês:</strong> Avançado (Técnico &amp; Profissional)
-                        </div>
-                    </div>
-                </section>
-
-                <!-- FOOTER -->
-                <footer class="panel footer">
-                    <p>Portfólio Online | Brasília, DF | Disponível para Trabalho Remoto Global</p>
-                    <p>© 2026 Pedro Ferreira – Todos os Direitos Reservados</p>
-                </footer>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- GSAP: scroll, parallax e transições -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollSmoother.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script>
-        window.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    </script>
-
-    <!-- THREE.JS: fundo cósmico (ES module — versões recentes do Three.js não distribuem build UMD) -->
-    <script type="module">
-        import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.185.1/three.module.min.js';
-        const { prefersReducedMotion, isCoarsePointer } = window;
-
-        /* ===================== COSMOS BACKGROUND (Three.js) ===================== */
-        (function initCosmos() {
-            const canvas = document.getElementById('cosmos-canvas');
-            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 3000);
-            camera.position.z = 420;
-
-            // soft round sprite generated on a canvas (no external image needed)
-            function makeSprite() {
-                const c = document.createElement('canvas');
-                c.width = c.height = 64;
-                const ctx = c.getContext('2d');
-                const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-                g.addColorStop(0, 'rgba(255,255,255,1)');
-                g.addColorStop(0.4, 'rgba(255,255,255,0.6)');
-                g.addColorStop(1, 'rgba(255,255,255,0)');
-                ctx.fillStyle = g;
-                ctx.fillRect(0, 0, 64, 64);
-                return new THREE.CanvasTexture(c);
-            }
-            const sprite = makeSprite();
-
-            function makeStarLayer(count, radius, size, palette) {
-                const positions = new Float32Array(count * 3);
-                const colors = new Float32Array(count * 3);
-                const color = new THREE.Color();
-                for (let i = 0; i < count; i++) {
-                    const r = radius * (0.4 + Math.random() * 0.6);
-                    const theta = Math.random() * Math.PI * 2;
-                    const phi = Math.acos((Math.random() * 2) - 1);
-                    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-                    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-                    positions[i * 3 + 2] = r * Math.cos(phi);
-                    color.set(palette[Math.floor(Math.random() * palette.length)]);
-                    colors[i * 3] = color.r;
-                    colors[i * 3 + 1] = color.g;
-                    colors[i * 3 + 2] = color.b;
-                }
-                const geo = new THREE.BufferGeometry();
-                geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-                const mat = new THREE.PointsMaterial({
-                    size, map: sprite, vertexColors: true, transparent: true,
-                    depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-                });
-                return new THREE.Points(geo, mat);
-            }
-
-            const farStars = makeStarLayer(3200, 1400, 2.2, ['#ffffff', '#bcd4ff', '#8fb8ff']);
-            const nearStars = makeStarLayer(900, 800, 3.6, ['#4ee1ff', '#b26bff', '#ff5ec8']);
-            scene.add(farStars, nearStars);
-
-            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-            window.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX / window.innerWidth - 0.5);
-                mouseY = (e.clientY / window.innerHeight - 0.5);
-            });
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-
-            let scrollT = 0;
-            if (!prefersReducedMotion) {
-                gsap.registerPlugin(ScrollTrigger);
-                ScrollTrigger.create({
-                    trigger: document.getElementById('smooth-content') || document.body,
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    scrub: true,
-                    onUpdate: (self) => { scrollT = self.progress; }
-                });
-            }
-
-            let running = true;
-            document.addEventListener('visibilitychange', () => { running = !document.hidden; });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                if (!running) return;
-
-                if (!prefersReducedMotion) {
-                    targetX += (mouseX - targetX) * 0.04;
-                    targetY += (mouseY - targetY) * 0.04;
-                    farStars.rotation.y += 0.00025;
-                    nearStars.rotation.y -= 0.00045;
-                    farStars.rotation.x = targetY * 0.25;
-                    nearStars.rotation.x = targetY * 0.4;
-                    farStars.rotation.z = targetX * 0.1;
-                    camera.position.z = 420 - scrollT * 260;
-                    camera.rotation.z = scrollT * 0.12;
-                }
-                renderer.render(scene, camera);
-            }
-            animate();
+        (function () {
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var coarse = window.matchMedia('(pointer: coarse)').matches;
+            window.prefersReducedMotion = reduce;
+            window.isCoarsePointer = coarse;
+            if (!reduce && !coarse) document.documentElement.classList.add('slides-mode');
+            try {
+                var theme = localStorage.getItem('siteTheme');
+                if (theme && theme !== 'cosmos') document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
         })();
     </script>
+</head>
+<body>
+    <canvas id="hero-canvas"></canvas>
+    <div class="vignette"></div>
 
-    <script>
-        const { prefersReducedMotion, isCoarsePointer } = window;
+    <header class="topbar">
+        <nav class="dot-nav" aria-label="Navegação de seções">
+            <button class="dot" data-index="0"><span class="dot-tooltip" data-i18n="nav.hero">Início</span></button>
+            <button class="dot" data-index="1"><span class="dot-tooltip" data-i18n="nav.perfil">Perfil</span></button>
+            <button class="dot" data-index="2"><span class="dot-tooltip" data-i18n="nav.experiencia">Trajetória</span></button>
+            <button class="dot" data-index="3"><span class="dot-tooltip" data-i18n="nav.skills">Competências</span></button>
+            <button class="dot" data-index="4"><span class="dot-tooltip" data-i18n="nav.certs">Certificações</span></button>
+            <button class="dot" data-index="5"><span class="dot-tooltip" data-i18n="nav.formacao">Formação</span></button>
+            <button class="dot" data-index="6"><span class="dot-tooltip" data-i18n="nav.idiomas">Idiomas</span></button>
+            <button class="dot" data-index="7"><span class="dot-tooltip" data-i18n="nav.comunidade">Comunidade</span></button>
+        </nav>
+        <div class="topbar-actions">
+            <button class="action-btn" id="theme-toggle" type="button" aria-label="Alternar tema">
+                <i class="fa-solid fa-meteor"></i>
+            </button>
+            <button class="action-btn" id="lang-toggle" type="button" aria-label="Mudar idioma" title="Change language">
+                <span class="lang-code">EN</span>
+            </button>
+        </div>
+    </header>
 
-        /* ===================== GSAP: scroll suave, parallax e transições ===================== */
-        gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
+    <div id="track">
 
-        let smoother = null;
-        if (!prefersReducedMotion && !isCoarsePointer) {
-            document.documentElement.classList.add('has-smoother');
-            smoother = ScrollSmoother.create({
-                wrapper: '#smooth-wrapper',
-                content: '#smooth-content',
-                smooth: 1.3,
-                effects: true,
-                normalizeScroll: true
-            });
-        }
+        <!-- HERO -->
+        <section class="hero h-slide" id="hero">
+            <h1 class="hero-name">PEDRO FERREIRA</h1>
+            <p class="hero-role" data-i18n="hero.role">Desenvolvedor Salesforce Sênior | Arquitetura de Soluções &amp; Mentoria</p>
+            <div class="hero-contact">
+                <a class="icon-pill" href="mailto:pferreira.dev0@gmail.com" aria-label="Email">
+                    <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="label">pferreira.dev0@gmail.com</span>
+                </a>
+                <a class="icon-pill" href="https://wa.me/5561992883797" target="_blank" rel="noopener" aria-label="WhatsApp">
+                    <span class="icon"><i class="fa-brands fa-whatsapp"></i></span><span class="label">+55 (61) 99288-3797</span>
+                </a>
+                <a class="icon-pill" href="https://github.com/PedFerreira" target="_blank" rel="noopener" aria-label="GitHub">
+                    <span class="icon"><i class="fa-brands fa-github"></i></span><span class="label">GitHub</span>
+                </a>
+                <a class="icon-pill" href="https://linkedin.com/in/pferreiravkt" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <span class="icon"><i class="fa-brands fa-linkedin"></i></span><span class="label">LinkedIn</span>
+                </a>
+            </div>
+            <div class="scroll-cue"><span class="cue-bar"></span>Scroll</div>
+        </section>
 
-        // barra de progresso de scroll
-        gsap.to('.scroll-progress-bar', {
-            scaleX: 1,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '#smooth-content',
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: true
-            }
-        });
+        <!-- PERFIL -->
+        <section class="panel h-slide" id="perfil">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="perfil.eyebrow">01 · Perfil</div>
+                <h2 class="section-title" data-i18n="perfil.title">Perfil Profissional</h2>
+                <div class="glass summary-card" data-i18n="perfil.body">Desenvolvedor Salesforce Sênior com 5+ anos projetando e implantando soluções enterprise. Expertise em arquitetura Apex, Lightning Web Components e integrações de APIs. Histórico comprovado de redução de 40% em incidentes críticos, otimização de sistemas gerenciando milhões de registros e mentoria de desenvolvedores com 2 promoções para posições mid-level.</div>
+            </div>
+        </section>
 
-        if (!prefersReducedMotion) {
-            // nome do hero: revelação letra a letra
-            const split = new SplitText('.hero-name', { type: 'chars', charsClass: 'char' });
-            gsap.from(split.chars, {
-                yPercent: 130, opacity: 0, duration: 1, stagger: 0.03,
-                ease: 'power4.out', delay: 0.2
-            });
-            gsap.from('.eyebrow', { opacity: 0, y: -10, duration: 0.7, delay: 0.1 });
-            gsap.from('.hero-title', { opacity: 0, y: 16, duration: 0.8, delay: 0.9, ease: 'power2.out' });
+        <!-- EXPERIÊNCIA -->
+        <section class="panel h-slide" id="experiencia">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="experiencia.eyebrow">02 · Trajetória</div>
+                <h2 class="section-title" data-i18n="experiencia.title">Experiência Profissional</h2>
+                <div class="timeline">
+                    <div class="experience-item glass">
+                        <div class="job-header">
+                            <div class="job-title" data-i18n="job1.title">Desenvolvedor Salesforce Sênior – OSF Digital</div>
+                            <div class="job-period" data-i18n="job1.period">Out 2022 – Presente (3.9 anos)</div>
+                        </div>
+                        <div class="job-company" data-i18n="job1.company">Remoto</div>
+                        <ul class="achievements">
+                            <li data-i18n="job1.li1">Arquiteto Trigger Framework com Bulkification e processamento async; otimizei batch noturno de 4+ horas para 45 minutos (81% de melhoria); redução de 40% em uso de CPU</li>
+                            <li data-i18n="job1.li2">Projetei componentes LWC enterprise com caching e integração LMS servindo 5.000+ usuários; melhorei responsividade UI em 50%</li>
+                            <li data-i18n="job1.li3">Implementei integrações APIs REST/SOAP reduzindo falhas de 8% para 1.2% com 99.7% de confiabilidade uptime</li>
+                            <li data-i18n="job1.li4">Otimizei 50+ organizações de produção usando análise SOQL e indexação; redução de 40% no tempo de resposta a incidentes</li>
+                            <li data-i18n="job1.li5">Estabeleci padrões com cobertura de testes 85%+ com pipeline CI/CD; redução de 45% em bugs de produção ano a ano</li>
+                            <li data-i18n="job1.li6">Mentorizei 3 desenvolvedores juniores; promovi com sucesso 2 para posições mid-level</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item glass">
+                        <div class="job-header">
+                            <div class="job-title" data-i18n="job2.title">Desenvolvedor Salesforce (Júnior → Mid-level) – Sottelli</div>
+                            <div class="job-period" data-i18n="job2.period">Jan 2021 – Set 2022 (1.7 anos)</div>
+                        </div>
+                        <div class="job-company" data-i18n="job2.company">Remoto</div>
+                        <ul class="achievements">
+                            <li data-i18n="job2.li1">Promovido de estagiário a desenvolvedor júnior em 6 meses; rápido crescimento técnico e expertise em plataforma</li>
+                            <li data-i18n="job2.li2">Desenvolvi 8+ features de produção com taxa de sucesso de deployment 99.9%</li>
+                            <li data-i18n="job2.li3">Otimizei processos com Flow; economia de 3+ horas/semana por usuário; melhoria de adoção em 25%</li>
+                            <li data-i18n="job2.li4">Contribuí a governança de segurança; redução de 70% em tentativas de acesso não autorizado</li>
+                            <li data-i18n="job2.li5">Participei de code reviews e pair programming; rápida internalização de best practices em Apex e LWC</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            gsap.set('.hero-contact .pill', { opacity: 0, y: 16 });
-            gsap.to('.hero-contact .pill', { opacity: 1, y: 0, duration: 0.6, delay: 1.1, stagger: 0.08, ease: 'power2.out' });
+        <!-- COMPETÊNCIAS -->
+        <section class="panel h-slide" id="skills">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="skills.eyebrow">03 · Competências</div>
+                <h2 class="section-title" data-i18n="skills.title">Competências Técnicas</h2>
+                <div class="skills-container">
+                    <div class="skill-card glass">
+                        <div class="skill-card-inner">
+                            <h3 data-i18n="skill1.title">Desenvolvimento Apex</h3>
+                            <p data-i18n="skill1.body">Trigger Framework, Bulkification, Processamento Async, Otimização SOQL, Testes Apex, TDD</p>
+                        </div>
+                    </div>
+                    <div class="skill-card glass">
+                        <div class="skill-card-inner">
+                            <h3 data-i18n="skill2.title">Frontend</h3>
+                            <p data-i18n="skill2.body">Lightning Web Components, Visualforce, Design Responsivo, Caching Client-side, LMS</p>
+                        </div>
+                    </div>
+                    <div class="skill-card glass">
+                        <div class="skill-card-inner">
+                            <h3 data-i18n="skill3.title">Integração e APIs</h3>
+                            <p data-i18n="skill3.body">APIs REST/SOAP, Callouts Async, Tratamento de Erros, Platform Events, Change Data Capture</p>
+                        </div>
+                    </div>
+                    <div class="skill-card glass">
+                        <div class="skill-card-inner">
+                            <h3 data-i18n="skill4.title">Plataformas Salesforce</h3>
+                            <p data-i18n="skill4.body">Sales Cloud, Service Cloud, Experience Cloud, Modelos de Segurança, Arquitetura</p>
+                        </div>
+                    </div>
+                    <div class="skill-card glass">
+                        <div class="skill-card-inner">
+                            <h3 data-i18n="skill5.title">DevOps e Qualidade</h3>
+                            <p data-i18n="skill5.body">Pipelines CI/CD, Git/GitHub, Copado, SFDX, Revisão de Código, Padrões de Design</p>
+                        </div>
+                    </div>
+                    <div class="skill-card glass">
+                        <div class="skill-card-inner">
+                            <h3 data-i18n="skill6.title">Performance</h3>
+                            <p data-i18n="skill6.body">Governor Limits, Indexação de Banco, Otimização Query, Processamento Batch, Monitoramento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            // títulos de seção
-            gsap.utils.toArray('.section-title').forEach((title) => {
-                gsap.set(title, { x: -30, opacity: 0 });
-                gsap.to(title, {
-                    scrollTrigger: { trigger: title, start: 'top 85%' },
-                    x: 0, opacity: 1, duration: 0.6, ease: 'power2.out'
-                });
-            });
-            gsap.utils.toArray('.eyebrow').forEach((el) => {
-                if (el.closest('.hero')) return;
-                gsap.set(el, { opacity: 0 });
-                gsap.to(el, {
-                    scrollTrigger: { trigger: el, start: 'top 88%' },
-                    opacity: 1, duration: 0.5
-                });
-            });
+        <!-- CERTIFICAÇÕES -->
+        <section class="panel h-slide" id="certs">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="certs.eyebrow">04 · Certificações</div>
+                <h2 class="section-title" data-i18n="certs.title">Certificações Profissionais</h2>
+                <div class="cert-list">
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Developer II</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Developer I</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified AgentForce Specialist</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Administrator</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Associate</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce AI Associate</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>FM2S Lean Six Sigma Yellow Belt</span></div>
+                </div>
+            </div>
+        </section>
 
-            // itens de experiência
-            gsap.utils.toArray('.experience-item').forEach((item) => {
-                gsap.set(item, { y: 40, opacity: 0 });
-                gsap.to(item, {
-                    scrollTrigger: { trigger: item, start: 'top 88%' },
-                    y: 0, opacity: 1, duration: 0.7, ease: 'power2.out'
-                });
-            });
+        <!-- FORMAÇÃO -->
+        <section class="panel h-slide" id="formacao">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="formacao.eyebrow">05 · Formação</div>
+                <h2 class="section-title" data-i18n="formacao.title">Formação e Aprendizado</h2>
+                <div class="info-box glass" data-i18n="formacao.box1"><strong>Bacharelado em Ciência – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: Dez 2026</div>
+                <div class="info-box glass" data-i18n="formacao.box2"><strong>Pós-graduação – Arquitetura de Software para Dados em Grande Escala</strong> | Em Progresso | 2027</div>
+            </div>
+        </section>
 
-            // skill cards em cascata
-            gsap.set('.skill-card', { y: 30, opacity: 0 });
-            gsap.to('.skill-card', {
-                scrollTrigger: { trigger: '.skills-container', start: 'top 85%' },
-                y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.4)'
-            });
+        <!-- IDIOMAS -->
+        <section class="panel h-slide" id="idiomas">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="idiomas.eyebrow">06 · Idiomas</div>
+                <h2 class="section-title" data-i18n="idiomas.title">Idiomas</h2>
+                <div class="info-box glass" data-i18n="idiomas.box"><strong>Português:</strong> Nativo &nbsp;|&nbsp; <strong>Inglês:</strong> Avançado (Técnico &amp; Profissional)</div>
+            </div>
+        </section>
 
-            // certificações em cascata
-            gsap.set('.cert-item', { scale: 0.8, opacity: 0 });
-            gsap.to('.cert-item', {
-                scrollTrigger: { trigger: '.cert-list', start: 'top 85%' },
-                scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.6)'
-            });
+        <!-- COMUNIDADE -->
+        <section class="panel h-slide" id="comunidade">
+            <div class="panel-inner">
+                <div class="eyebrow" data-i18n="comunidade.eyebrow">07 · Comunidade</div>
+                <h2 class="section-title" data-i18n="comunidade.title">Comunidade &amp; Inovação</h2>
+                <div class="info-box glass" data-i18n="comunidade.box1"><strong>Hackathon – OSF Digital Hackathon (2024):</strong> Desenvolvi sistema de priorização com IA usando Web-to-Case e NLP para analisar sentimento do cliente; automação de classificação de urgência (P1-P3); melhoria de 35% em conformidade SLA e tempo de primeira resposta.</div>
+                <div class="info-box glass" data-i18n="comunidade.box2"><strong>Interesse Ativo:</strong> Buscando participação em Hackathons Salesforce Agentforce para expandir expertise em agentes IA autônomos e padrões de desenvolvimento agentic.</div>
+            </div>
+        </section>
 
-            // info boxes / summary
-            gsap.utils.toArray('.info-box, .summary-card').forEach((box) => {
-                gsap.set(box, { x: -20, opacity: 0 });
-                gsap.to(box, {
-                    scrollTrigger: { trigger: box, start: 'top 90%' },
-                    x: 0, opacity: 1, duration: 0.5, ease: 'power2.out'
-                });
-            });
+    </div>
 
-            // transição/sobreposição entre painéis: o painel que sai recua e escurece,
-            // o que entra "abre" com leve perspectiva 3D
-            gsap.utils.toArray('.panel').forEach((panel) => {
-                gsap.fromTo(panel,
-                    { rotationX: 4, transformOrigin: '50% 0%' },
-                    {
-                        rotationX: 0,
-                        ease: 'none',
-                        scrollTrigger: { trigger: panel, start: 'top bottom', end: 'top 55%', scrub: true }
-                    }
-                );
-                gsap.to(panel, {
-                    scale: 0.97,
-                    opacity: 0.65,
-                    ease: 'none',
-                    transformOrigin: '50% 100%',
-                    scrollTrigger: { trigger: panel, start: 'bottom bottom', end: 'bottom center', scrub: true }
-                });
-            });
-        }
+    <!-- FOOTER: barra fixa e permanente (não participa da navegação por cards) -->
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <span class="footer-loc">
+                <img class="flag-icon" src="https://flagcdn.com/br.svg" alt="" width="18" height="13">
+                <span data-i18n="footer.location">Brasil, Brasília - DF</span>
+            </span>
+            <span class="footer-clock mono" id="world-clock" aria-label="Horário em diferentes fusos horários"></span>
+            <span class="footer-rights" data-i18n="footer.rights">© 2026 Pedro Ferreira – Todos os Direitos Reservados</span>
+        </div>
+    </footer>
 
-        /* ===================== TILT 3D + PARALLAX INTERNO NOS CARDS ===================== */
-        function attachTilt(el, inner, max) {
-            if (prefersReducedMotion || isCoarsePointer) return;
-            el.style.transformStyle = 'preserve-3d';
-            const rotX = gsap.quickTo(el, 'rotationX', { duration: 0.5, ease: 'power3.out' });
-            const rotY = gsap.quickTo(el, 'rotationY', { duration: 0.5, ease: 'power3.out' });
-            const moveX = inner ? gsap.quickTo(inner, 'x', { duration: 0.5, ease: 'power3.out' }) : null;
-            const moveY = inner ? gsap.quickTo(inner, 'y', { duration: 0.5, ease: 'power3.out' }) : null;
+    <!-- GSAP: interações e reveal de conteúdo (sem ScrollTrigger/ScrollSmoother — navegação agora é orientada por wheel/teclado) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
 
-            el.addEventListener('mousemove', (e) => {
-                const r = el.getBoundingClientRect();
-                const px = (e.clientX - r.left) / r.width - 0.5;
-                const py = (e.clientY - r.top) / r.height - 0.5;
-                rotY(px * max * 2);
-                rotX(-py * max * 2);
-                if (moveX) { moveX(px * 16); moveY(py * 16); }
-            });
-            el.addEventListener('mouseleave', () => {
-                rotX(0); rotY(0);
-                if (moveX) { moveX(0); moveY(0); }
-            });
-        }
+    <!-- THREE.JS: fundos interativos do hero, um por tema (build clássico/UMD, funciona também via file://) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.152.2/three.min.js"></script>
+    <script src="js/three-themes.js"></script>
 
-        document.querySelectorAll('.skill-card').forEach((card) => {
-            attachTilt(card, card.querySelector('.skill-card-inner'), 7);
-        });
-        document.querySelectorAll('.cert-item').forEach((card) => {
-            attachTilt(card, card.querySelector('span:last-child'), 5);
-        });
-        document.querySelectorAll('.experience-item').forEach((card) => {
-            attachTilt(card, null, 2);
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
