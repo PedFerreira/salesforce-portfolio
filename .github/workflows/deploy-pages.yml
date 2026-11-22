@@ -1,0 +1,83 @@
+# Publica pedroferreira.site no GitHub Pages:
+#   /        -> portfólio estático (index.html, css/, js/)
+#   /poker/  -> Planning Poker (export estático do Next.js em poker-app/)
+#
+# Requer, em Settings -> Pages, "Source: GitHub Actions".
+# Variáveis (Settings -> Secrets and variables -> Actions -> Variables).
+# São valores PÚBLICOS por natureza (vão no JavaScript do navegador):
+#   SUPABASE_URL, SUPABASE_ANON_KEY, TURNSTILE_SITE_KEY
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: poker-app/package-lock.json
+
+      - name: Verificar variáveis do Planning Poker
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+        run: |
+          [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ] || \
+            echo "::warning::SUPABASE_URL/SUPABASE_ANON_KEY não configuradas — /poker vai abrir, mas não conecta."
+          [ -n "$TURNSTILE_SITE_KEY" ] || \
+            echo "::warning::TURNSTILE_SITE_KEY não configurada — login anônimo sem captcha."
+
+      - name: Instalar dependências do Planning Poker
+        working-directory: poker-app
+        run: npm ci
+
+      - name: Build do Planning Poker
+        working-directory: poker-app
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          NEXT_TELEMETRY_DISABLED: 1
+        run: npm run build
+
+      - name: Montar o site
+        run: |
+          mkdir -p _site
+          cp index.html CNAME _site/
+          cp -r css js _site/
+          cp -r poker-app/out _site/poker
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
