@@ -132,7 +132,8 @@ window.addEventListener('load', fitHeroRole);
 /* ===================== TEMAS: Cosmos, Pôr do Sol, ... ===================== */
 const THEMES = [
     { name: 'cosmos', icon: 'fa-solid fa-meteor', label: { pt: 'Cosmos', en: 'Cosmos' } },
-    { name: 'sunset', icon: 'fa-solid fa-mountain-sun', label: { pt: 'Pôr do Sol', en: 'Sunset' } }
+    { name: 'sunset', icon: 'fa-solid fa-mountain-sun', label: { pt: 'Pôr do Sol', en: 'Sunset' } },
+    { name: 'lightning', icon: 'fa-solid fa-cloud', label: { pt: 'Lightning (Salesforce)', en: 'Lightning (Salesforce)' } }
 ];
 const themeBtn = document.getElementById('theme-toggle');
 
@@ -149,7 +150,7 @@ function applyTheme(name) {
 }
 
 const savedTheme = (function () { try { return localStorage.getItem('siteTheme'); } catch (e) { return null; } })();
-let currentThemeName = THEMES.some((t) => t.name === savedTheme) ? savedTheme : 'cosmos';
+let currentThemeName = THEMES.some((t) => t.name === savedTheme) ? savedTheme : 'lightning';
 applyTheme(currentThemeName);
 
 themeBtn.addEventListener('click', () => {
@@ -205,9 +206,12 @@ if (isSlidesMode) {
                 else if (delta <= 2) { scale = 0.86 - (delta - 1) * 0.06; opacity = 0.35 * (2 - delta); }
                 else { scale = 0.8; opacity = 0; vis = 'hidden'; z = 90; }
             } else {
-                const a = -delta;
-                if (a <= 1) { xPercent = -50 + 100 * a; x = 90 * a; }
-                else { xPercent = 50; x = 90; vis = 'hidden'; }
+                /* cards entram alternando os lados: ímpares pela direita, pares pela esquerda */
+                const side = i % 2 === 1 ? 1 : -1;
+                const a = Math.min(-delta, 1);
+                xPercent = -50 + side * 100 * a;
+                x = side * 90 * a;
+                if (-delta > 1) vis = 'hidden';
             }
             gsap.set(el, { xPercent, yPercent: -50, x, scale, opacity, zIndex: z, visibility: vis });
             const dist = Math.abs(delta);
@@ -276,6 +280,22 @@ if (isSlidesMode) {
     }, { threshold: 0.5 });
     slides.forEach((el) => activeObserver.observe(el));
     updateDots(0);
+
+    /* entrada alternada (direita/esquerda) também na rolagem vertical, exceto com movimento reduzido */
+    if (!prefersReducedMotion) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                revealObserver.unobserve(entry.target);
+                gsap.to(entry.target, { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+            });
+        }, { threshold: 0.12 });
+        slides.forEach((el, i) => {
+            if (i === 0) return;
+            gsap.set(el, { x: (i % 2 === 1 ? 1 : -1) * 80, opacity: 0 });
+            revealObserver.observe(el);
+        });
+    }
 }
 
 /* ===================== HERO: revelação inicial ===================== */

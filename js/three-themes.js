@@ -199,12 +199,91 @@ function createSunsetTheme() {
     };
 }
 
-const THEME_RENDERERS = { cosmos: createCosmosTheme, sunset: createSunsetTheme };
+/* ===================== TEMA: LIGHTNING — céu claro com nuvens (UX Salesforce) ===================== */
+function createLightningTheme() {
+    const scene = new THREE.Scene();
+    const { w: w0, h: h0 } = currentSize();
+    const camera = new THREE.PerspectiveCamera(55, w0 / h0, 0.1, 3000);
+    camera.position.z = 500;
+
+    const puffTexture = makeSprite([
+        [0, 'rgba(255,255,255,1)'],
+        [0.45, 'rgba(255,255,255,0.85)'],
+        [0.75, 'rgba(255,255,255,0.25)'],
+        [1, 'rgba(255,255,255,0)']
+    ]);
+    const materials = [];
+    const clouds = [];
+
+    /* cada nuvem = grupo de "puffs" sobrepostos; profundidades diferentes geram parallax */
+    function makeCloud(depth, scale, opacity) {
+        const group = new THREE.Group();
+        const mat = new THREE.SpriteMaterial({ map: puffTexture, transparent: true, depthWrite: false, opacity });
+        materials.push(mat);
+        const puffs = 5 + Math.floor(Math.random() * 4);
+        for (let i = 0; i < puffs; i++) {
+            const s = new THREE.Sprite(mat);
+            const size = (60 + Math.random() * 70) * scale;
+            s.scale.set(size * 1.3, size, 1);
+            s.position.set((i - puffs / 2) * 34 * scale + (Math.random() - 0.5) * 20 * scale,
+                Math.sin((i / (puffs - 1)) * Math.PI) * 26 * scale + (Math.random() - 0.5) * 10 * scale, 0);
+            group.add(s);
+        }
+        group.position.set((Math.random() - 0.5) * 1600, (Math.random() - 0.5) * 700, depth);
+        group.userData.speed = (0.12 + Math.random() * 0.18) * (1 + depth / 600);
+        scene.add(group);
+        clouds.push(group);
+    }
+    for (let i = 0; i < 7; i++) makeCloud(-500 - Math.random() * 300, 1.4, 0.55);
+    for (let i = 0; i < 6; i++) makeCloud(-150 - Math.random() * 200, 1.1, 0.75);
+    for (let i = 0; i < 3; i++) makeCloud(80 + Math.random() * 80, 0.9, 0.9);
+
+    /* pontinhos azuis sutis (cor de marca) */
+    const dotCount = 140;
+    const pos = new Float32Array(dotCount * 3);
+    for (let i = 0; i < dotCount; i++) {
+        pos[i * 3] = (Math.random() - 0.5) * 1800;
+        pos[i * 3 + 1] = (Math.random() - 0.5) * 1000;
+        pos[i * 3 + 2] = -600 + Math.random() * 700;
+    }
+    const dotGeo = new THREE.BufferGeometry();
+    dotGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const dotMat = new THREE.PointsMaterial({ color: 0x0176d3, size: 3, map: makeSprite(), transparent: true, opacity: 0.35, depthWrite: false });
+    const dots = new THREE.Points(dotGeo, dotMat);
+    scene.add(dots);
+
+    let targetX = 0, targetY = 0;
+    return {
+        scene, camera,
+        onResize(w, h) { camera.aspect = w / h; camera.updateProjectionMatrix(); },
+        update() {
+            if (heroReducedMotion) return;
+            targetX += (mouseX - targetX) * 0.04;
+            targetY += (mouseY - targetY) * 0.04;
+            camera.position.x = targetX * 60;
+            camera.position.y = -targetY * 40 - (window.__slideProgress || 0) * 80;
+            camera.lookAt(0, camera.position.y * 0.5, -300);
+            clouds.forEach((c) => {
+                c.position.x += c.userData.speed;
+                if (c.position.x > 1000) c.position.x = -1000;
+            });
+            dots.rotation.y += 0.0004;
+        },
+        dispose() {
+            materials.forEach((m) => m.dispose());
+            puffTexture.dispose();
+            dotGeo.dispose();
+            dotMat.dispose();
+        }
+    };
+}
+
+const THEME_RENDERERS = { cosmos: createCosmosTheme, sunset: createSunsetTheme, lightning: createLightningTheme };
 let activeRenderer = null;
 
 function activateHeroTheme(name) {
     if (activeRenderer && activeRenderer.dispose) activeRenderer.dispose();
-    const factory = THEME_RENDERERS[name] || THEME_RENDERERS.cosmos;
+    const factory = THEME_RENDERERS[name] || THEME_RENDERERS.lightning;
     activeRenderer = factory();
 }
 window.__setHeroTheme = activateHeroTheme;
@@ -226,5 +305,5 @@ function animate() {
 }
 
 const heroSavedTheme = (function () { try { return localStorage.getItem('siteTheme'); } catch (e) { return null; } })();
-activateHeroTheme(THEME_RENDERERS[heroSavedTheme] ? heroSavedTheme : 'cosmos');
+activateHeroTheme(THEME_RENDERERS[heroSavedTheme] ? heroSavedTheme : 'lightning');
 animate();

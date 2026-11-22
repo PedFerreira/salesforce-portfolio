@@ -16,10 +16,9 @@
             window.prefersReducedMotion = reduce;
             window.isCoarsePointer = coarse;
             if (!reduce && !coarse) document.documentElement.classList.add('slides-mode');
-            try {
-                var theme = localStorage.getItem('siteTheme');
-                if (theme && theme !== 'cosmos') document.documentElement.setAttribute('data-theme', theme);
-            } catch (e) {}
+            var theme = 'lightning'; /* tema padrão: Lightning (UX Salesforce) */
+            try { theme = localStorage.getItem('siteTheme') || theme; } catch (e) {}
+            if (theme !== 'cosmos') document.documentElement.setAttribute('data-theme', theme);
         })();
     </script>
 </head>
@@ -56,16 +55,16 @@
             <p class="hero-role" data-i18n="hero.role">Desenvolvedor Salesforce Sênior | Arquitetura de Soluções &amp; Mentoria</p>
             <div class="hero-contact">
                 <a class="icon-pill" href="mailto:pferreira.dev0@gmail.com" aria-label="Email">
-                    <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="label">pferreira.dev0@gmail.com</span>
+                    <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="label">Email</span>
                 </a>
                 <a class="icon-pill" href="https://wa.me/5561992883797" target="_blank" rel="noopener" aria-label="WhatsApp">
-                    <span class="icon"><i class="fa-brands fa-whatsapp"></i></span><span class="label">+55 (61) 99288-3797</span>
-                </a>
-                <a class="icon-pill" href="https://github.com/PedFerreira" target="_blank" rel="noopener" aria-label="GitHub">
-                    <span class="icon"><i class="fa-brands fa-github"></i></span><span class="label">GitHub</span>
+                    <span class="icon"><i class="fa-brands fa-whatsapp"></i></span><span class="label">WhatsApp</span>
                 </a>
                 <a class="icon-pill" href="https://linkedin.com/in/pferreiravkt" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <span class="icon"><i class="fa-brands fa-linkedin"></i></span><span class="label">LinkedIn</span>
+                </a>
+                <a class="icon-pill" href="https://github.com/PedFerreira" target="_blank" rel="noopener" aria-label="GitHub">
+                    <span class="icon"><i class="fa-brands fa-github"></i></span><span class="label">GitHub</span>
                 </a>
             </div>
             <div class="scroll-cue"><span class="cue-bar"></span>Scroll</div>

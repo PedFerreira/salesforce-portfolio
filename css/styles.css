@@ -545,3 +545,226 @@ html.slides-mode .achievements li { margin-bottom: 8px; font-size: 0.88em; }
     .panel { background: white; box-shadow: none; backdrop-filter: none; }
     .glass { background: #f4f4f4; border: 1px solid #ddd; }
 }
+
+/* =====================================================================
+   TEMA: LIGHTNING — UX Salesforce (Lightning Design System)
+   Fundo claro, cards brancos, azul de marca #0176d3, tipografia do sistema,
+   cabeçalhos com "icon tile" de objeto, foco/hover no padrão SLDS.
+   ===================================================================== */
+:root[data-theme="lightning"] {
+    --bg-void: #f3f3f3;
+    --panel: #ffffff;
+    --panel-strong: #ffffff;
+    --border-glass: #dddbda;
+    --text-primary: #181818;
+    --text-muted: #444444;
+    --text-dim: #747474;
+    --cyan: #0176d3;
+    --blue: #0b5cab;
+    --purple: #032d60;
+    --magenta: #0176d3;
+    --success: #2e844a;
+    --grad-brand: linear-gradient(120deg, #0176d3, #0b5cab);
+    --hero-canvas-bg: linear-gradient(180deg, #b8dcfb 0%, #dcedfd 38%, #eef4fb 70%, #f3f3f3 100%);
+    --slds-brand: #0176d3;
+    --slds-brand-dark: #032d60;
+    --slds-border: #dddbda;
+    --slds-border-weak: #e5e5e5;
+    --slds-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
+    --slds-focus: 0 0 3px #0176d3;
+}
+:root[data-theme="lightning"] body,
+:root[data-theme="lightning"] h1,
+:root[data-theme="lightning"] h2,
+:root[data-theme="lightning"] h3,
+:root[data-theme="lightning"] .mono,
+:root[data-theme="lightning"] .eyebrow,
+:root[data-theme="lightning"] .job-period,
+:root[data-theme="lightning"] .cert-item,
+:root[data-theme="lightning"] .hero-role,
+:root[data-theme="lightning"] .action-btn .lang-code {
+    font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+:root[data-theme="lightning"] body { line-height: 1.5; }
+:root[data-theme="lightning"] .vignette { display: none; }
+
+/* Topbar: navegação + botões ícone no padrão SLDS */
+:root[data-theme="lightning"] .dot-nav {
+    background: #fff;
+    border: 1px solid var(--slds-border);
+    box-shadow: var(--slds-shadow);
+    backdrop-filter: none;
+}
+:root[data-theme="lightning"] .dot { background: #c9c9c9; }
+:root[data-theme="lightning"] .dot:hover,
+:root[data-theme="lightning"] .dot:focus-visible { background: #747474; outline: none; }
+:root[data-theme="lightning"] .dot.active { background: var(--slds-brand); box-shadow: none; }
+:root[data-theme="lightning"] .dot-tooltip {
+    background: var(--slds-brand-dark);
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.75em;
+    letter-spacing: 0;
+    backdrop-filter: none;
+}
+:root[data-theme="lightning"] .action-btn {
+    border-radius: 4px;
+    width: 36px; height: 36px;
+    background: #fff;
+    border: 1px solid #c9c9c9;
+    color: var(--slds-brand);
+    backdrop-filter: none;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+:root[data-theme="lightning"] .action-btn:hover { background: #f3f3f3; border-color: #c9c9c9; box-shadow: none; transform: none; }
+:root[data-theme="lightning"] .action-btn:focus-visible { outline: none; border-color: var(--slds-brand); box-shadow: var(--slds-focus); transform: none; }
+:root[data-theme="lightning"] .action-btn .lang-code { font-weight: 700; font-size: 0.75em; }
+
+/* Hero */
+:root[data-theme="lightning"] .hero-name {
+    color: var(--slds-brand-dark);
+    filter: none;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+:root[data-theme="lightning"] .hero-name .char { background: none; color: inherit; }
+:root[data-theme="lightning"] .hero-role { color: var(--slds-brand); opacity: 1; letter-spacing: 1.5px; font-weight: 600; }
+:root[data-theme="lightning"] .icon-pill {
+    background: #fff;
+    border: 1px solid #c9c9c9;
+    color: var(--slds-brand);
+    border-radius: 4px;
+    height: 40px;
+    backdrop-filter: none;
+    box-shadow: var(--slds-shadow);
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+:root[data-theme="lightning"] .icon-pill .icon { width: 40px; height: 40px; font-size: 1em; }
+:root[data-theme="lightning"] .icon-pill .label { font-weight: 600; font-size: 0.8125em; }
+:root[data-theme="lightning"] .icon-pill:hover { background: #f3f3f3; border-color: #c9c9c9; box-shadow: var(--slds-shadow); transform: none; }
+:root[data-theme="lightning"] .icon-pill:focus-visible { outline: none; border-color: var(--slds-brand); box-shadow: var(--slds-focus); transform: none; }
+:root[data-theme="lightning"] .scroll-cue { color: #444; }
+:root[data-theme="lightning"] .scroll-cue .cue-bar { background: linear-gradient(90deg, transparent, var(--slds-brand), transparent); }
+
+/* Seções = Lightning cards brancos */
+:root[data-theme="lightning"] .panel {
+    background: #f3f3f3;
+    backdrop-filter: none;
+    box-shadow: 0 -2px 8px rgba(3,45,96,0.08);
+    border-top: 1px solid var(--slds-border);
+    border-radius: 12px 12px 0 0;
+}
+:root[data-theme="lightning"] .panel::before { display: none; }
+:root.slides-mode[data-theme="lightning"] .h-slide:not(.hero) {
+    background: #fff;
+    backdrop-filter: none;
+    border: 1px solid var(--slds-border);
+    border-radius: 12px;
+    box-shadow: var(--slds-shadow), 0 16px 48px rgba(3,45,96,0.14);
+}
+
+/* Cabeçalho da seção no estilo "page header" do SLDS: icon tile + rótulo + título */
+:root[data-theme="lightning"] .panel-inner { position: relative; padding-left: 52px; }
+:root[data-theme="lightning"] .panel-inner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 36px; height: 36px;
+    border-radius: 4px;
+    background-color: var(--slds-brand);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 26px 26px;
+}
+:root[data-theme="lightning"] #perfil .panel-inner::before      { background-color: #3c97dd; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/user.svg"); }
+:root[data-theme="lightning"] #experiencia .panel-inner::before { background-color: #04844b; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/work_order.svg"); }
+:root[data-theme="lightning"] #skills .panel-inner::before      { background-color: #8b5cf6; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/skill.svg"); }
+:root[data-theme="lightning"] #certs .panel-inner::before       { background-color: #e4a201; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/reward.svg"); }
+:root[data-theme="lightning"] #formacao .panel-inner::before    { background-color: #ea7600; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/education.svg"); }
+:root[data-theme="lightning"] #idiomas .panel-inner::before     { background-color: #0d9dda; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/topic.svg"); }
+:root[data-theme="lightning"] #comunidade .panel-inner::before  { background-color: #ba01ff; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/groups.svg"); }
+
+:root[data-theme="lightning"] .eyebrow {
+    font-size: 0.8125em;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #444;
+    opacity: 1;
+    margin-bottom: 0;
+    line-height: 1.25;
+}
+:root[data-theme="lightning"] .section-title {
+    font-size: 1.375em;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin: 2px 0 24px;
+    line-height: 1.25;
+    color: #181818;
+}
+/* o conteúdo usa a largura toda, abaixo do cabeçalho com ícone */
+:root[data-theme="lightning"] .panel-inner > :not(.eyebrow):not(.section-title) { margin-left: -52px; }
+
+/* Blocos internos = cards/tiles SLDS (também dentro do card da seção no modo slides) */
+:root[data-theme="lightning"] .glass,
+:root.slides-mode[data-theme="lightning"] .glass {
+    background: #fff;
+    border: 1px solid var(--slds-border-weak);
+    border-radius: 4px;
+    backdrop-filter: none;
+    box-shadow: var(--slds-shadow);
+}
+:root.slides-mode[data-theme="lightning"] .glass { box-shadow: none; }
+:root[data-theme="lightning"] .summary-card { font-size: 0.9375em; color: #181818; padding: 20px 24px; }
+:root.slides-mode[data-theme="lightning"] .experience-item { padding: 16px 18px; }
+:root[data-theme="lightning"] .job-title { font-size: 1em; font-weight: 700; color: var(--slds-brand); }
+:root[data-theme="lightning"] .job-period {
+    font-size: 0.75em;
+    color: #444;
+    background: #f3f3f3;
+    border: 1px solid var(--slds-border);
+    border-radius: 15rem;
+    padding: 1px 10px;
+    font-weight: 600;
+}
+:root[data-theme="lightning"] .job-company { font-size: 0.8125em; color: #747474; margin-bottom: 10px; }
+:root[data-theme="lightning"] .achievements li { color: #181818; font-size: 0.875em; padding-left: 18px; }
+:root[data-theme="lightning"] .achievements li:before { content: "•"; color: var(--slds-brand); font-size: 1.2em; line-height: 1.2; }
+
+:root[data-theme="lightning"] .skill-card { padding: 16px 18px; }
+:root[data-theme="lightning"] .skill-card-inner h3 {
+    font-size: 0.875em;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #181818;
+    margin-bottom: 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--slds-border-weak);
+}
+:root[data-theme="lightning"] .skill-card-inner p { font-size: 0.8125em; color: #444; }
+:root[data-theme="lightning"] .skill-card:hover,
+:root[data-theme="lightning"] .cert-item:hover { border-color: var(--slds-border); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+
+:root[data-theme="lightning"] .cert-item { padding: 12px 16px; font-size: 0.8125em; font-weight: 600; color: #181818; }
+:root[data-theme="lightning"] .cert-check {
+    width: 24px; height: 24px;
+    background: var(--success);
+    color: #fff;
+    box-shadow: none;
+    font-size: 0.85em;
+}
+:root[data-theme="lightning"] .info-box { padding: 16px 20px; font-size: 0.875em; color: #181818; }
+:root[data-theme="lightning"] .info-box strong { color: var(--slds-brand-dark); }
+:root[data-theme="lightning"] a { color: var(--slds-brand); }
+
+/* Rodapé claro */
+:root[data-theme="lightning"] .site-footer { background: linear-gradient(0deg, rgba(243,243,243,0.95), rgba(243,243,243,0)); }
+:root[data-theme="lightning"] .site-footer-inner { color: #444; }
+:root[data-theme="lightning"] .footer-clock { color: #444; }
+:root[data-theme="lightning"] .flag-icon { box-shadow: 0 0 0 1px rgba(0,0,0,0.12); }
+
+@media (max-width: 768px) {
+    :root[data-theme="lightning"] .panel-inner { padding-left: 46px; }
+    :root[data-theme="lightning"] .panel-inner > :not(.eyebrow):not(.section-title) { margin-left: -46px; }
+}
