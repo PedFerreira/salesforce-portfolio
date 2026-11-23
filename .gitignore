@@ -3,3 +3,7 @@ node_modules/
 .sf/
 .vscode/
 *.log
+
+# Credenciais locais (nunca versionar)
+.env*
+!.env.example
