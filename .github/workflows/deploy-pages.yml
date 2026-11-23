@@ -30,7 +30,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Mesmo Node/npm (24/11) que gerou o package-lock.json
+          node-version: 24
           cache: npm
           cache-dependency-path: poker-app/package-lock.json
 
