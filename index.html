@@ -27,6 +27,7 @@
     <div class="vignette"></div>
 
     <header class="topbar">
+        <a class="topbar-brand" href="#hero">Pedro Ferreira</a>
         <nav class="dot-nav" aria-label="Navegação de seções">
             <button class="dot" data-index="0"><span class="dot-tooltip" data-i18n="nav.hero">Início</span></button>
             <button class="dot" data-index="1"><span class="dot-tooltip" data-i18n="nav.perfil">Perfil</span></button>
@@ -35,7 +36,7 @@
             <button class="dot" data-index="4"><span class="dot-tooltip" data-i18n="nav.certs">Certificações</span></button>
             <button class="dot" data-index="5"><span class="dot-tooltip" data-i18n="nav.formacao">Formação</span></button>
             <button class="dot" data-index="6"><span class="dot-tooltip" data-i18n="nav.idiomas">Idiomas</span></button>
-            <button class="dot" data-index="7"><span class="dot-tooltip" data-i18n="nav.comunidade">Comunidade</span></button>
+            <button class="dot" data-index="7"><span class="dot-tooltip" data-i18n="nav.comunidade">Projetos</span></button>
         </nav>
         <div class="topbar-actions">
             <a class="action-btn action-link" href="/poker/" aria-label="Planning Poker" title="Planning Poker">
@@ -55,7 +56,7 @@
         <!-- HERO -->
         <section class="hero h-slide" id="hero">
             <h1 class="hero-name">PEDRO FERREIRA</h1>
-            <p class="hero-role" data-i18n="hero.role">Desenvolvedor Salesforce Sênior | Arquitetura de Soluções &amp; Mentoria</p>
+            <p class="hero-role" data-i18n="hero.role">Desenvolvedor Salesforce Sênior</p>
             <div class="hero-contact">
                 <a class="icon-pill" href="mailto:pferreira.dev0@gmail.com" aria-label="Email">
                     <span class="icon"><i class="fa-solid fa-envelope"></i></span><span class="label">Email</span>
@@ -86,7 +87,16 @@
             <div class="panel-inner">
                 <div class="eyebrow" data-i18n="perfil.eyebrow">01 · Perfil</div>
                 <h2 class="section-title" data-i18n="perfil.title">Perfil Profissional</h2>
-                <div class="glass summary-card" data-i18n="perfil.body">Desenvolvedor Salesforce Sênior com 5+ anos projetando e implantando soluções enterprise. Expertise em arquitetura Apex, Lightning Web Components e integrações de APIs. Histórico comprovado de redução de 40% em incidentes críticos, otimização de sistemas gerenciando milhões de registros e mentoria de desenvolvedores com 2 promoções para posições mid-level.</div>
+                <div class="glass summary-card" data-i18n="perfil.body">Desenvolvedor Salesforce Sênior com 5+ anos de experiência prática construindo soluções enterprise escaláveis em Sales Cloud, Service Cloud e Experience Cloud, com foco recente na implementação técnica de <strong>agentes autônomos de IA com Agentforce</strong>: Topics e Instructions, Agent Actions (Apex, Flow e Prompt Templates), grounding com Data Cloud e Knowledge, guardrails com Einstein Trust Layer e deploy em canais digitais com escalonamento via Omni-Channel. Forte em Apex, LWC, Visualforce e Flows, modelagem de dados, governor limits, otimização de performance e integrações REST/SOAP. Foco em código limpo e reutilizável (Trigger Framework, design patterns), testes automatizados (85%+ de cobertura) e DevOps com Git e Copado, trabalhando junto a Admins e áreas de negócio para transformar requisitos em soluções técnicas.</div>
+                <div class="stats-grid">
+                    <div class="stat glass"><span class="stat-value">5+</span><span class="stat-label" data-i18n="stat.years">anos de experiência</span></div>
+                    <div class="stat glass"><span class="stat-value">5.000+</span><span class="stat-label" data-i18n="stat.users">usuários atendidos</span></div>
+                    <div class="stat glass"><span class="stat-value">50+</span><span class="stat-label" data-i18n="stat.orgs">orgs de produção</span></div>
+                    <div class="stat glass"><span class="stat-value">15+</span><span class="stat-label" data-i18n="stat.integrations">projetos de integração</span></div>
+                    <div class="stat glass"><span class="stat-value">85%+</span><span class="stat-label" data-i18n="stat.coverage">cobertura de testes</span></div>
+                    <div class="stat glass"><span class="stat-value">60%</span><span class="stat-label" data-i18n="stat.performance">ganho de performance da org</span></div>
+                </div>
+                <div class="info-box glass" data-i18n="perfil.highlights"><strong>Principais resultados:</strong> agentes Agentforce em produção, com Topics, Actions e grounding em Data Cloud, automatizando atendimentos antes feitos por humanos · redução de 35% em problemas críticos em produção e ganho de 60% de performance da org com padrões escaláveis e otimização de SOQL · 15+ projetos de integração enterprise · mentoria de 3 desenvolvedores juniores, 2 promovidos a pleno.</div>
             </div>
         </section>
 
@@ -99,30 +109,50 @@
                     <div class="experience-item glass">
                         <div class="job-header">
                             <div class="job-title" data-i18n="job1.title">Desenvolvedor Salesforce Sênior – OSF Digital</div>
-                            <div class="job-period" data-i18n="job1.period">Out 2022 – Presente (3.9 anos)</div>
+                            <div class="job-period" data-i18n="job1.period">Out 2022 – Presente</div>
                         </div>
                         <div class="job-company" data-i18n="job1.company">Remoto</div>
+                        <div class="job-groups">
+                        <div class="job-group-block">
+                        <div class="job-group" data-i18n="job1.groupAi">Agentforce e IA Agêntica</div>
                         <ul class="achievements">
-                            <li data-i18n="job1.li1">Arquiteto Trigger Framework com Bulkification e processamento async; otimizei batch noturno de 4+ horas para 45 minutos (81% de melhoria); redução de 40% em uso de CPU</li>
-                            <li data-i18n="job1.li2">Projetei componentes LWC enterprise com caching e integração LMS servindo 5.000+ usuários; melhorei responsividade UI em 50%</li>
-                            <li data-i18n="job1.li3">Implementei integrações APIs REST/SOAP reduzindo falhas de 8% para 1.2% com 99.7% de confiabilidade uptime</li>
-                            <li data-i18n="job1.li4">Otimizei 50+ organizações de produção usando análise SOQL e indexação; redução de 40% no tempo de resposta a incidentes</li>
-                            <li data-i18n="job1.li5">Estabeleci padrões com cobertura de testes 85%+ com pipeline CI/CD; redução de 45% em bugs de produção ano a ano</li>
-                            <li data-i18n="job1.li6">Mentorizei 3 desenvolvedores juniores; promovi com sucesso 2 para posições mid-level</li>
+                            <li data-i18n="job1.ai1">Implementação técnica end-to-end de agentes autônomos com Agentforce (Agentforce Service Agent e agentes customizados) para atendimento ao cliente e automação de processos, do desenvolvimento ao deploy em produção</li>
+                            <li data-i18n="job1.ai2">Configuração de agentes no Agentforce Builder: Topics, classificação de intenção, Instructions e escopo de atuação, refinando o comportamento do Atlas Reasoning Engine e reduzindo desvios de tópico</li>
+                            <li data-i18n="job1.ai3">Desenvolvimento de Agent Actions customizadas com Apex (@InvocableMethod), Flows autolançados e Prompt Templates no Prompt Builder, conectando agentes a sistemas externos via APIs REST</li>
+                            <li data-i18n="job1.ai4">Grounding de respostas com Data Cloud, Salesforce Knowledge e Agentforce Data Library (RAG), garantindo respostas contextualizadas a partir de dados confiáveis do CRM</li>
+                            <li data-i18n="job1.ai5">Guardrails com Einstein Trust Layer (mascaramento de dados sensíveis, detecção de toxicidade, zero data retention), Agent User e permissões de menor privilégio em conformidade com a LGPD</li>
+                            <li data-i18n="job1.ai6">Deploy de agentes via Messaging for In-App and Web (MIAW), Embedded Service e Experience Cloud, com escalonamento para atendentes humanos via Omni-Channel e handoff contextualizado</li>
+                            <li data-i18n="job1.ai7">Migração de Einstein Bots legados para Agentforce, substituindo fluxos de diálogo rígidos por agentes baseados em LLM</li>
+                            <li data-i18n="job1.ai8">Testes com Agentforce Testing Center (testes em lote de utterances), monitoramento de sessões e iteração contínua de prompts e instruções</li>
+                            <li data-i18n="job1.ai9">Integração de agentes a aplicações externas via Agent API e versionamento de metadados em pipelines CI/CD com SFDX e Agentforce DX</li>
                         </ul>
+                        </div>
+                        <div class="job-group-block">
+                        <div class="job-group" data-i18n="job1.groupPlatform">Desenvolvimento na Plataforma</div>
+                        <ul class="achievements">
+                            <li data-i18n="job1.li1">Desenvolvo e entrego soluções Salesforce enterprise (Sales Cloud, Service Cloud, Experience Cloud) para 5.000+ usuários, com bases de milhões de registros</li>
+                            <li data-i18n="job1.li2">Modelo dados customizados e escrevo Apex performático e bulkificado, com Trigger Framework, design patterns e processamento assíncrono (Queueable, Batch, Scheduled), dentro dos governor limits</li>
+                            <li data-i18n="job1.li3">Construo Lightning Web Components reutilizáveis com cache no cliente, LMS, design responsivo e acessibilidade; mantenho e modernizo páginas Visualforce</li>
+                            <li data-i18n="job1.li4">Automatizo processos de negócio com Flows record-triggered, agendados e autolaunched, escolhendo entre abordagens declarativas e programáticas</li>
+                            <li data-i18n="job1.li5">Construo integrações REST/SOAP com sistemas externos usando Named Credentials, OAuth 2.0, Platform Events e Change Data Capture, com tratamento de erros, retentativas e rate limiting</li>
+                            <li data-i18n="job1.li6">Otimizo a performance das orgs com tuning de SOQL, queries seletivas e indexação; reduzi em 40% o tempo de resposta a incidentes em produção com análise de causa raiz</li>
+                            <li data-i18n="job1.li7">Garanto código limpo e reutilizável com code reviews e análise PMD; mantenho 85%+ de cobertura com testes unitários Apex automatizados; mentoro desenvolvedores juniores</li>
+                            <li data-i18n="job1.li8">Gerencio versionamento e pipelines de release com Git, Copado, Flosum e SFDX em 50+ orgs de produção</li>
+                            <li data-i18n="job1.li9">Atuo com Admins Salesforce e áreas de negócio para transformar requisitos em desenhos técnicos e estimativas</li>
+                        </ul>
+                        </div>
+                        </div>
                     </div>
                     <div class="experience-item glass">
                         <div class="job-header">
-                            <div class="job-title" data-i18n="job2.title">Desenvolvedor Salesforce (Júnior → Mid-level) – Sottelli</div>
-                            <div class="job-period" data-i18n="job2.period">Jan 2021 – Set 2022 (1.7 anos)</div>
+                            <div class="job-title" data-i18n="job2.title">Desenvolvedor Salesforce (Júnior → Pleno) – Sottelli</div>
+                            <div class="job-period" data-i18n="job2.period">Jan 2021 – Set 2022</div>
                         </div>
                         <div class="job-company" data-i18n="job2.company">Remoto</div>
                         <ul class="achievements">
-                            <li data-i18n="job2.li1">Promovido de estagiário a desenvolvedor júnior em 6 meses; rápido crescimento técnico e expertise em plataforma</li>
-                            <li data-i18n="job2.li2">Desenvolvi 8+ features de produção com taxa de sucesso de deployment 99.9%</li>
-                            <li data-i18n="job2.li3">Otimizei processos com Flow; economia de 3+ horas/semana por usuário; melhoria de adoção em 25%</li>
-                            <li data-i18n="job2.li4">Contribuí a governança de segurança; redução de 70% em tentativas de acesso não autorizado</li>
-                            <li data-i18n="job2.li5">Participei de code reviews e pair programming; rápida internalização de best practices em Apex e LWC</li>
+                            <li data-i18n="job2.li1">Promovido de estagiário a desenvolvedor em 6 meses; construí funcionalidades com Flows, Process Builder, Apex e LWC</li>
+                            <li data-i18n="job2.li2">Entreguei 8+ funcionalidades para clientes e migrei componentes Aura legados para LWC, melhorando performance e manutenibilidade</li>
+                            <li data-i18n="job2.li3">Atuei em times Agile/Scrum, com pair programming e code reviews junto a desenvolvedores sêniores</li>
                         </ul>
                     </div>
                 </div>
@@ -137,38 +167,38 @@
                 <div class="skills-container">
                     <div class="skill-card glass">
                         <div class="skill-card-inner">
-                            <h3 data-i18n="skill1.title">Desenvolvimento Apex</h3>
-                            <p data-i18n="skill1.body">Trigger Framework, Bulkification, Processamento Async, Otimização SOQL, Testes Apex, TDD</p>
+                            <h3 data-i18n="skill1.title">Agentforce e IA Generativa</h3>
+                            <p data-i18n="skill1.body">Agentforce Builder, Topics e Instructions, Agent Actions, Prompt Builder e Prompt Templates, Atlas Reasoning Engine, Einstein Trust Layer, Data Cloud Grounding / RAG, Data Library, Testing Center, Agent API, Agentforce DX, Einstein Bots, Prompt Engineering</p>
                         </div>
                     </div>
                     <div class="skill-card glass">
                         <div class="skill-card-inner">
-                            <h3 data-i18n="skill2.title">Frontend</h3>
-                            <p data-i18n="skill2.body">Lightning Web Components, Visualforce, Design Responsivo, Caching Client-side, LMS</p>
+                            <h3 data-i18n="skill2.title">Apex, Flows e Back-end</h3>
+                            <p data-i18n="skill2.body">Apex, Async Apex (Queueable, Batch, Scheduled), Trigger Framework, Design Patterns, Flows (record-triggered, agendados, autolaunched), SOQL/SOSL, Bulkification, Governor Limits</p>
                         </div>
                     </div>
                     <div class="skill-card glass">
                         <div class="skill-card-inner">
-                            <h3 data-i18n="skill3.title">Integração e APIs</h3>
-                            <p data-i18n="skill3.body">APIs REST/SOAP, Callouts Async, Tratamento de Erros, Platform Events, Change Data Capture</p>
+                            <h3 data-i18n="skill3.title">Front-end</h3>
+                            <p data-i18n="skill3.body">Lightning Web Components, Visualforce, JavaScript, TypeScript, HTML5, CSS3, LMS, Acessibilidade</p>
                         </div>
                     </div>
                     <div class="skill-card glass">
                         <div class="skill-card-inner">
-                            <h3 data-i18n="skill4.title">Plataformas Salesforce</h3>
-                            <p data-i18n="skill4.body">Sales Cloud, Service Cloud, Experience Cloud, Modelos de Segurança, Arquitetura</p>
+                            <h3 data-i18n="skill4.title">Integrações</h3>
+                            <p data-i18n="skill4.body">REST, SOAP, Named Credentials, OAuth 2.0, Platform Events, Change Data Capture, Webhooks</p>
                         </div>
                     </div>
                     <div class="skill-card glass">
                         <div class="skill-card-inner">
-                            <h3 data-i18n="skill5.title">DevOps e Qualidade</h3>
-                            <p data-i18n="skill5.body">Pipelines CI/CD, Git/GitHub, Copado, SFDX, Revisão de Código, Padrões de Design</p>
+                            <h3 data-i18n="skill5.title">Plataforma Salesforce</h3>
+                            <p data-i18n="skill5.body">Sales Cloud, Service Cloud, Experience Cloud, Data Cloud, Knowledge, Omni-Channel, MIAW, Modelagem de Dados, Modelo de Segurança e Compartilhamento</p>
                         </div>
                     </div>
                     <div class="skill-card glass">
                         <div class="skill-card-inner">
-                            <h3 data-i18n="skill6.title">Performance</h3>
-                            <p data-i18n="skill6.body">Governor Limits, Indexação de Banco, Otimização Query, Processamento Batch, Monitoramento</p>
+                            <h3 data-i18n="skill6.title">DevOps e Qualidade</h3>
+                            <p data-i18n="skill6.body">Git, GitHub, Copado, Flosum, SFDX, CI/CD, Testes Unitários Apex / TDD, Code Review, PMD</p>
                         </div>
                     </div>
                 </div>
@@ -181,13 +211,14 @@
                 <div class="eyebrow" data-i18n="certs.eyebrow">04 · Certificações</div>
                 <h2 class="section-title" data-i18n="certs.title">Certificações Profissionais</h2>
                 <div class="cert-list">
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Agentforce Specialist</span></div>
                     <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Developer II</span></div>
                     <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Developer I</span></div>
-                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified AgentForce Specialist</span></div>
                     <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Platform Administrator</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified AI Associate</span></div>
                     <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce Certified Associate</span></div>
-                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Salesforce AI Associate</span></div>
-                    <div class="cert-item glass"><span class="cert-check">✓</span><span>FM2S Lean Six Sigma Yellow Belt</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Flosum Expert &amp; Professional</span></div>
+                    <div class="cert-item glass"><span class="cert-check">✓</span><span>Lean Six Sigma Yellow Belt</span></div>
                 </div>
             </div>
         </section>
@@ -196,9 +227,9 @@
         <section class="panel h-slide" id="formacao">
             <div class="panel-inner">
                 <div class="eyebrow" data-i18n="formacao.eyebrow">05 · Formação</div>
-                <h2 class="section-title" data-i18n="formacao.title">Formação e Aprendizado</h2>
-                <div class="info-box glass" data-i18n="formacao.box1"><strong>Bacharelado em Ciência – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: Dez 2026</div>
-                <div class="info-box glass" data-i18n="formacao.box2"><strong>Pós-graduação – Arquitetura de Software para Dados em Grande Escala</strong> | Em Progresso | 2027</div>
+                <h2 class="section-title" data-i18n="formacao.title">Formação Acadêmica</h2>
+                <div class="info-box glass" data-i18n="formacao.box1"><strong>Graduação – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: dezembro de 2026</div>
+                <div class="info-box glass" data-i18n="formacao.box2"><strong>Pós-graduação – Arquitetura de Software para Ambientes de Dados em Larga Escala</strong> | Em andamento | 2027</div>
             </div>
         </section>
 
@@ -211,13 +242,11 @@
             </div>
         </section>
 
-        <!-- COMUNIDADE -->
+        <!-- PROJETOS -->
         <section class="panel h-slide" id="comunidade">
             <div class="panel-inner">
-                <div class="eyebrow" data-i18n="comunidade.eyebrow">07 · Comunidade</div>
-                <h2 class="section-title" data-i18n="comunidade.title">Comunidade &amp; Inovação</h2>
-                <div class="info-box glass" data-i18n="comunidade.box1"><strong>Hackathon – OSF Digital Hackathon (2024):</strong> Desenvolvi sistema de priorização com IA usando Web-to-Case e NLP para analisar sentimento do cliente; automação de classificação de urgência (P1-P3); melhoria de 35% em conformidade SLA e tempo de primeira resposta.</div>
-                <div class="info-box glass" data-i18n="comunidade.box2"><strong>Interesse Ativo:</strong> Buscando participação em Hackathons Salesforce Agentforce para expandir expertise em agentes IA autônomos e padrões de desenvolvimento agentic.</div>
+                <div class="eyebrow" data-i18n="comunidade.eyebrow">07 · Projetos</div>
+                <h2 class="section-title" data-i18n="comunidade.title">Projetos Pessoais</h2>
                 <div class="info-box glass" data-i18n="comunidade.box3"><strong>Projeto aberto – Planning Poker:</strong> Ferramenta gratuita de estimativa em tempo real para times ágeis, sem cadastro (Next.js + Supabase Realtime). <a href="/poker/">Experimente aqui →</a></div>
             </div>
         </section>
@@ -229,7 +258,7 @@
         <div class="site-footer-inner">
             <span class="footer-loc">
                 <img class="flag-icon" src="https://flagcdn.com/br.svg" alt="" width="18" height="13">
-                <span data-i18n="footer.location">Brasil, Brasília - DF</span>
+                <span data-i18n="footer.location">Brasília, Brasil · Aberto a trabalho remoto</span>
             </span>
             <span class="footer-clock mono" id="world-clock" aria-label="Horário em diferentes fusos horários"></span>
             <span class="footer-rights" data-i18n="footer.rights">© 2026 Pedro Ferreira – Todos os Direitos Reservados</span>

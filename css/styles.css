@@ -751,7 +751,7 @@ html.slides-mode .achievements li { margin-bottom: 8px; font-size: 0.88em; }
 :root[data-theme="lightning"] #certs .panel-inner::before       { background-color: #e4a201; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/reward.svg"); }
 :root[data-theme="lightning"] #formacao .panel-inner::before    { background-color: #ea7600; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/education.svg"); }
 :root[data-theme="lightning"] #idiomas .panel-inner::before     { background-color: #0d9dda; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/topic.svg"); }
-:root[data-theme="lightning"] #comunidade .panel-inner::before  { background-color: #ba01ff; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/groups.svg"); }
+:root[data-theme="lightning"] #comunidade .panel-inner::before  { background-color: #ba01ff; background-image: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.264.2/assets/icons/standard/apps.svg"); }
 
 :root[data-theme="lightning"] .eyebrow {
     font-size: 0.8125em;
@@ -835,4 +835,156 @@ html.slides-mode .achievements li { margin-bottom: 8px; font-size: 0.88em; }
 @media (max-width: 768px) {
     :root[data-theme="lightning"] .panel-inner { padding-left: 46px; }
     :root[data-theme="lightning"] .panel-inner > :not(.eyebrow):not(.section-title) { margin-left: -46px; }
+}
+
+/* =====================================================================
+   NÚMEROS DE DESTAQUE (perfil) · "VER MAIS" · MARCA DO TOPO
+   ===================================================================== */
+html, body { overflow-x: clip; }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0 14px;
+}
+.stat { padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.stat-value {
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.15;
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.stat-label { font-size: 0.78em; color: var(--text-muted); line-height: 1.35; }
+:root[data-theme="lightning"] .stat-value {
+    font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: none;
+    color: var(--slds-brand-dark);
+}
+:root[data-theme="lightning"] .stat-label { color: #444; }
+
+/* "Ver mais": listas longas mostram 3 itens no celular e nos cards do desktop
+   (modo slides), onde 10 itens passariam da altura da tela. */
+.more-toggle {
+    display: none;
+    align-items: center;
+    margin-top: 2px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-glass);
+    background: transparent;
+    color: var(--cyan);
+    font: inherit;
+    font-size: 0.85em;
+    font-weight: 600;
+    cursor: pointer;
+}
+.more-toggle:hover, .more-toggle:focus-visible { border-color: var(--cyan); outline: none; }
+
+/* Subgrupos dentro de um cargo (ex.: "Agentforce e IA Agêntica" / "Desenvolvimento na Plataforma") */
+.job-group {
+    margin: 14px 0 8px;
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+.job-company + .job-group { margin-top: 0; }
+.job-group + .achievements { margin-bottom: 4px; }
+:root[data-theme="lightning"] .job-group { color: var(--slds-brand-dark); letter-spacing: 0.6px; }
+.job-group-block + .job-group-block { margin-top: 10px; }
+/* Modo slides: o cargo atual ocupa a largura toda com os dois grupos lado a lado
+   (cabe na altura do card); o cargo anterior vem embaixo. */
+html.slides-mode .timeline { grid-template-columns: 1fr; }
+html.slides-mode .job-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+html.slides-mode .job-group-block + .job-group-block { margin-top: 0; }
+:root[data-theme="lightning"] .more-toggle { border-radius: 4px; border-color: #c9c9c9; background: #fff; color: var(--slds-brand); }
+:root[data-theme="lightning"] .more-toggle:hover { background: #f3f3f3; }
+:root[data-theme="lightning"] .more-toggle:focus-visible { border-color: var(--slds-brand); box-shadow: var(--slds-focus); }
+html.slides-mode .more-toggle { display: inline-flex; }
+html.slides-mode .achievements.is-collapsed li:nth-child(n+4) { display: none; }
+.topbar-brand { display: none; }
+
+/* =====================================================================
+   MOBILE (≤ 768px): leitura em primeiro lugar
+   - barra do topo sólida com nome + ações (os 8 pontos saem: não cabem e
+     flutuavam por cima do texto);
+   - nada mais largo que a tela; hero sem espaços mortos; seções compactas;
+   - rodapé no fim da página em vez de fixo cobrindo o conteúdo.
+   ===================================================================== */
+@media (max-width: 768px) {
+    .topbar {
+        height: 56px;
+        pointer-events: auto;
+        background: rgba(5,6,13,0.82);
+        backdrop-filter: blur(12px) saturate(140%);
+        border-bottom: 1px solid var(--border-glass);
+    }
+    :root[data-theme="sunset"] .topbar { background: rgba(26,14,20,0.84); }
+    :root[data-theme="lightning"] .topbar { background: rgba(255,255,255,0.94); border-bottom-color: var(--slds-border); }
+    .dot-nav { display: none; }
+    .topbar-brand {
+        display: block;
+        position: absolute;
+        left: 16px; top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.3px;
+        color: var(--text-primary);
+        text-decoration: none;
+    }
+    :root[data-theme="lightning"] .topbar-brand { font-family: inherit; color: var(--slds-brand-dark); }
+    .topbar-actions { right: 12px; gap: 8px; }
+    .topbar-actions .action-link { display: flex; }
+    .vignette { display: none; }
+
+    /* hero um pouco menor que a tela: o topo da próxima seção aparece e convida a rolar */
+    .hero { min-height: 86vh; min-height: 86svh; padding: 80px 20px 36px; }
+    .hero-name { margin-bottom: 12px; }
+    .hero-role {
+        white-space: normal;
+        font-size: 0.78rem;
+        letter-spacing: 1.2px;
+        line-height: 1.7;
+        margin-bottom: 28px;
+    }
+    .hero-contact { gap: 10px; }
+    .hero-cta { width: 100%; max-width: 440px; margin-top: 22px; }
+    .scroll-cue { display: none; }
+
+    .panel { margin-top: 0; padding: 36px 16px 32px; border-radius: 0; box-shadow: none; }
+    :root[data-theme="lightning"] .panel { border-radius: 0; box-shadow: none; }
+    .section-title { margin-bottom: 20px; }
+    .summary-card { padding: 18px; font-size: 0.95em; }
+    .timeline { gap: 16px; }
+    .experience-item { padding: 16px; }
+    .achievements li { font-size: 0.9em; margin-bottom: 10px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat { padding: 12px 14px; }
+    .stat-value { font-size: 1.4em; }
+    .skills-container { gap: 12px; }
+    .skill-card { padding: 16px; }
+    .cert-list { gap: 10px; }
+    .cert-item { padding: 12px 14px; }
+    .info-box { padding: 16px; }
+
+    .achievements.is-collapsed li:nth-child(n+4) { display: none; }
+    .more-toggle { display: inline-flex; padding: 8px 16px; }
+
+    .site-footer {
+        position: relative;
+        padding: 24px 16px 32px;
+        background: var(--bg-void);
+        border-top: 1px solid var(--border-glass);
+        pointer-events: auto;
+    }
+    :root[data-theme="lightning"] .site-footer { background: #fff; border-top-color: var(--slds-border); }
+    .site-footer-inner { flex-direction: column; gap: 6px; font-size: 0.8em; }
 }

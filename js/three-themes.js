@@ -1,7 +1,11 @@
 const heroReducedMotion = window.prefersReducedMotion;
 
 const canvas = document.getElementById('hero-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+/* Em telas touch o fundo é decorativo atrás do conteúdo: menos pixels e sem antialias
+   economizam GPU/bateria sem diferença visível. */
+const heroIsTouch = !!window.isCoarsePointer;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !heroIsTouch, alpha: true, powerPreference: 'low-power' });
+const MAX_PIXEL_RATIO = heroIsTouch ? 1.25 : 2;
 
 /* usa o tamanho real do próprio canvas (via CSS) em vez de window.innerWidth/innerHeight,
    para funcionar corretamente também dentro de painéis/iframes embutidos */
@@ -10,7 +14,7 @@ function currentSize() {
 }
 function applySize() {
     const { w, h } = currentSize();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, MAX_PIXEL_RATIO));
     renderer.setSize(w, h, false);
     if (activeRenderer && activeRenderer.onResize) activeRenderer.onResize(w, h);
 }
@@ -285,6 +289,9 @@ function activateHeroTheme(name) {
     if (activeRenderer && activeRenderer.dispose) activeRenderer.dispose();
     const factory = THEME_RENDERERS[name] || THEME_RENDERERS.lightning;
     activeRenderer = factory();
+    // garante um quadro do tema novo mesmo com o loop pausado (rolagem longe do hero)
+    activeRenderer.update();
+    renderer.render(activeRenderer.scene, activeRenderer.camera);
 }
 window.__setHeroTheme = activateHeroTheme;
 
@@ -297,9 +304,14 @@ window.__slideProgress = 0;
 let running = true;
 document.addEventListener('visibilitychange', () => { running = !document.hidden; });
 
+/* Na rolagem vertical (touch / movimento reduzido) o hero sai da tela e as seções cobrem
+   o fundo: pausa o render depois de ~1 tela de rolagem. No modo slides o fundo fica sempre visível. */
+const heroScrollMode = !document.documentElement.classList.contains('slides-mode');
+
 function animate() {
     requestAnimationFrame(animate);
     if (!running || !activeRenderer) return;
+    if (heroScrollMode && window.scrollY > window.innerHeight * 1.1) return;
     activeRenderer.update();
     renderer.render(activeRenderer.scene, activeRenderer.camera);
 }

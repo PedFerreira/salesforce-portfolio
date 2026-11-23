@@ -6,97 +6,133 @@ const isSlidesMode = document.documentElement.classList.contains('slides-mode');
 const I18N = {
     pt: {
         'nav.hero': 'Início', 'nav.perfil': 'Perfil', 'nav.experiencia': 'Trajetória',
-        'nav.comunidade': 'Comunidade', 'nav.skills': 'Competências', 'nav.certs': 'Certificações',
+        'nav.comunidade': 'Projetos', 'nav.skills': 'Competências', 'nav.certs': 'Certificações',
         'nav.formacao': 'Formação', 'nav.idiomas': 'Idiomas',
-        'hero.role': 'Desenvolvedor Salesforce Sênior | Arquitetura de Soluções &amp; Mentoria',
+        'ui.more': 'Ver mais', 'ui.less': 'Ver menos',
+        'hero.role': 'Desenvolvedor Salesforce Sênior',
         'hero.pokerTitle': 'Planning Poker gratuito',
         'hero.pokerSub': 'Estimativas em tempo real para times ágeis · sem cadastro',
         'perfil.eyebrow': '01 · Perfil', 'perfil.title': 'Perfil Profissional',
-        'perfil.body': 'Desenvolvedor Salesforce Sênior com 5+ anos projetando e implantando soluções enterprise. Expertise em arquitetura Apex, Lightning Web Components e integrações de APIs. Histórico comprovado de redução de 40% em incidentes críticos, otimização de sistemas gerenciando milhões de registros e mentoria de desenvolvedores com 2 promoções para posições mid-level.',
+        'perfil.body': 'Desenvolvedor Salesforce Sênior com 5+ anos de experiência prática construindo soluções enterprise escaláveis em Sales Cloud, Service Cloud e Experience Cloud, com foco recente na implementação técnica de <strong>agentes autônomos de IA com Agentforce</strong>: Topics e Instructions, Agent Actions (Apex, Flow e Prompt Templates), grounding com Data Cloud e Knowledge, guardrails com Einstein Trust Layer e deploy em canais digitais com escalonamento via Omni-Channel. Forte em Apex, LWC, Visualforce e Flows, modelagem de dados, governor limits, otimização de performance e integrações REST/SOAP. Foco em código limpo e reutilizável (Trigger Framework, design patterns), testes automatizados (85%+ de cobertura) e DevOps com Git e Copado, trabalhando junto a Admins e áreas de negócio para transformar requisitos em soluções técnicas.',
+        'stat.years': 'anos de experiência', 'stat.users': 'usuários atendidos', 'stat.orgs': 'orgs de produção',
+        'stat.integrations': 'projetos de integração', 'stat.coverage': 'cobertura de testes', 'stat.performance': 'ganho de performance da org',
+        'perfil.highlights': '<strong>Principais resultados:</strong> agentes Agentforce em produção, com Topics, Actions e grounding em Data Cloud, automatizando atendimentos antes feitos por humanos · redução de 35% em problemas críticos em produção e ganho de 60% de performance da org com padrões escaláveis e otimização de SOQL · 15+ projetos de integração enterprise · mentoria de 3 desenvolvedores juniores, 2 promovidos a pleno.',
         'experiencia.eyebrow': '02 · Trajetória', 'experiencia.title': 'Experiência Profissional',
-        'job1.title': 'Desenvolvedor Salesforce Sênior – OSF Digital', 'job1.period': 'Out 2022 – Presente (3.9 anos)', 'job1.company': 'Remoto',
-        'job1.li1': 'Arquiteto Trigger Framework com Bulkification e processamento async; otimizei batch noturno de 4+ horas para 45 minutos (81% de melhoria); redução de 40% em uso de CPU',
-        'job1.li2': 'Projetei componentes LWC enterprise com caching e integração LMS servindo 5.000+ usuários; melhorei responsividade UI em 50%',
-        'job1.li3': 'Implementei integrações APIs REST/SOAP reduzindo falhas de 8% para 1.2% com 99.7% de confiabilidade uptime',
-        'job1.li4': 'Otimizei 50+ organizações de produção usando análise SOQL e indexação; redução de 40% no tempo de resposta a incidentes',
-        'job1.li5': 'Estabeleci padrões com cobertura de testes 85%+ com pipeline CI/CD; redução de 45% em bugs de produção ano a ano',
-        'job1.li6': 'Mentorizei 3 desenvolvedores juniores; promovi com sucesso 2 para posições mid-level',
-        'job2.title': 'Desenvolvedor Salesforce (Júnior → Mid-level) – Sottelli', 'job2.period': 'Jan 2021 – Set 2022 (1.7 anos)', 'job2.company': 'Remoto',
-        'job2.li1': 'Promovido de estagiário a desenvolvedor júnior em 6 meses; rápido crescimento técnico e expertise em plataforma',
-        'job2.li2': 'Desenvolvi 8+ features de produção com taxa de sucesso de deployment 99.9%',
-        'job2.li3': 'Otimizei processos com Flow; economia de 3+ horas/semana por usuário; melhoria de adoção em 25%',
-        'job2.li4': 'Contribuí a governança de segurança; redução de 70% em tentativas de acesso não autorizado',
-        'job2.li5': 'Participei de code reviews e pair programming; rápida internalização de best practices em Apex e LWC',
-        'comunidade.eyebrow': '07 · Comunidade', 'comunidade.title': 'Comunidade &amp; Inovação',
-        'comunidade.box1': '<strong>Hackathon – OSF Digital Hackathon (2024):</strong> Desenvolvi sistema de priorização com IA usando Web-to-Case e NLP para analisar sentimento do cliente; automação de classificação de urgência (P1-P3); melhoria de 35% em conformidade SLA e tempo de primeira resposta.',
-        'comunidade.box2': '<strong>Interesse Ativo:</strong> Buscando participação em Hackathons Salesforce Agentforce para expandir expertise em agentes IA autônomos e padrões de desenvolvimento agentic.',
+        'job1.title': 'Desenvolvedor Salesforce Sênior – OSF Digital', 'job1.period': 'Out 2022 – Presente', 'job1.company': 'Remoto',
+        'job1.li1': 'Desenvolvo e entrego soluções Salesforce enterprise (Sales Cloud, Service Cloud, Experience Cloud) para 5.000+ usuários, com bases de milhões de registros',
+        'job1.li2': 'Modelo dados customizados e escrevo Apex performático e bulkificado, com Trigger Framework, design patterns e processamento assíncrono (Queueable, Batch, Scheduled), dentro dos governor limits',
+        'job1.li3': 'Construo Lightning Web Components reutilizáveis com cache no cliente, LMS, design responsivo e acessibilidade; mantenho e modernizo páginas Visualforce',
+        'job1.li4': 'Automatizo processos de negócio com Flows record-triggered, agendados e autolaunched, escolhendo entre abordagens declarativas e programáticas',
+        'job1.li5': 'Construo integrações REST/SOAP com sistemas externos usando Named Credentials, OAuth 2.0, Platform Events e Change Data Capture, com tratamento de erros, retentativas e rate limiting',
+        'job1.li6': 'Otimizo a performance das orgs com tuning de SOQL, queries seletivas e indexação; reduzi em 40% o tempo de resposta a incidentes em produção com análise de causa raiz',
+        'job1.li7': 'Garanto código limpo e reutilizável com code reviews e análise PMD; mantenho 85%+ de cobertura com testes unitários Apex automatizados; mentoro desenvolvedores juniores',
+        'job1.li8': 'Gerencio versionamento e pipelines de release com Git, Copado, Flosum e SFDX em 50+ orgs de produção',
+        'job1.li9': 'Atuo com Admins Salesforce e áreas de negócio para transformar requisitos em desenhos técnicos e estimativas',
+        'job2.title': 'Desenvolvedor Salesforce (Júnior → Pleno) – Sottelli', 'job2.period': 'Jan 2021 – Set 2022', 'job2.company': 'Remoto',
+        'job2.li1': 'Promovido de estagiário a desenvolvedor em 6 meses; construí funcionalidades com Flows, Process Builder, Apex e LWC',
+        'job2.li2': 'Entreguei 8+ funcionalidades para clientes e migrei componentes Aura legados para LWC, melhorando performance e manutenibilidade',
+        'job2.li3': 'Atuei em times Agile/Scrum, com pair programming e code reviews junto a desenvolvedores sêniores',
+        'comunidade.eyebrow': '07 · Projetos', 'comunidade.title': 'Projetos Pessoais',
         'comunidade.box3': '<strong>Projeto aberto – Planning Poker:</strong> Ferramenta gratuita de estimativa em tempo real para times ágeis, sem cadastro (Next.js + Supabase Realtime). <a href="/poker/">Experimente aqui →</a>',
         'skills.eyebrow': '03 · Competências', 'skills.title': 'Competências Técnicas',
-        'skill1.title': 'Desenvolvimento Apex', 'skill1.body': 'Trigger Framework, Bulkification, Processamento Async, Otimização SOQL, Testes Apex, TDD',
-        'skill2.title': 'Frontend', 'skill2.body': 'Lightning Web Components, Visualforce, Design Responsivo, Caching Client-side, LMS',
-        'skill3.title': 'Integração e APIs', 'skill3.body': 'APIs REST/SOAP, Callouts Async, Tratamento de Erros, Platform Events, Change Data Capture',
-        'skill4.title': 'Plataformas Salesforce', 'skill4.body': 'Sales Cloud, Service Cloud, Experience Cloud, Modelos de Segurança, Arquitetura',
-        'skill5.title': 'DevOps e Qualidade', 'skill5.body': 'Pipelines CI/CD, Git/GitHub, Copado, SFDX, Revisão de Código, Padrões de Design',
-        'skill6.title': 'Performance', 'skill6.body': 'Governor Limits, Indexação de Banco, Otimização Query, Processamento Batch, Monitoramento',
+        'skill1.title': 'Agentforce e IA Generativa', 'skill1.body': 'Agentforce Builder, Topics e Instructions, Agent Actions, Prompt Builder e Prompt Templates, Atlas Reasoning Engine, Einstein Trust Layer, Data Cloud Grounding / RAG, Data Library, Testing Center, Agent API, Agentforce DX, Einstein Bots, Prompt Engineering',
+        'skill2.title': 'Apex, Flows e Back-end', 'skill2.body': 'Apex, Async Apex (Queueable, Batch, Scheduled), Trigger Framework, Design Patterns, Flows (record-triggered, agendados, autolaunched), SOQL/SOSL, Bulkification, Governor Limits',
+        'skill3.title': 'Front-end', 'skill3.body': 'Lightning Web Components, Visualforce, JavaScript, TypeScript, HTML5, CSS3, LMS, Acessibilidade',
+        'skill4.title': 'Integrações', 'skill4.body': 'REST, SOAP, Named Credentials, OAuth 2.0, Platform Events, Change Data Capture, Webhooks',
+        'skill5.title': 'Plataforma Salesforce', 'skill5.body': 'Sales Cloud, Service Cloud, Experience Cloud, Data Cloud, Knowledge, Omni-Channel, MIAW, Modelagem de Dados, Modelo de Segurança e Compartilhamento',
+        'skill6.title': 'DevOps e Qualidade', 'skill6.body': 'Git, GitHub, Copado, Flosum, SFDX, CI/CD, Testes Unitários Apex / TDD, Code Review, PMD',
         'certs.eyebrow': '04 · Certificações', 'certs.title': 'Certificações Profissionais',
-        'formacao.eyebrow': '05 · Formação', 'formacao.title': 'Formação e Aprendizado',
-        'formacao.box1': '<strong>Bacharelado em Ciência – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: Dez 2026',
-        'formacao.box2': '<strong>Pós-graduação – Arquitetura de Software para Dados em Grande Escala</strong> | Em Progresso | 2027',
+        'formacao.eyebrow': '05 · Formação', 'formacao.title': 'Formação Acadêmica',
+        'formacao.box1': '<strong>Graduação – Análise e Desenvolvimento de Sistemas</strong> | Universidade GRAN | Conclusão prevista: dezembro de 2026',
+        'formacao.box2': '<strong>Pós-graduação – Arquitetura de Software para Ambientes de Dados em Larga Escala</strong> | Em andamento | 2027',
         'idiomas.eyebrow': '06 · Idiomas', 'idiomas.title': 'Idiomas',
         'idiomas.box': '<strong>Português:</strong> Nativo &nbsp;|&nbsp; <strong>Inglês:</strong> Avançado (Técnico &amp; Profissional)',
-        'footer.location': 'Brasil, Brasília - DF',
+        'job1.groupAi': 'Agentforce e IA Agêntica',
+        'job1.groupPlatform': 'Desenvolvimento na Plataforma',
+        'job1.ai1': 'Implementação técnica end-to-end de agentes autônomos com Agentforce (Agentforce Service Agent e agentes customizados) para atendimento ao cliente e automação de processos, do desenvolvimento ao deploy em produção',
+        'job1.ai2': 'Configuração de agentes no Agentforce Builder: Topics, classificação de intenção, Instructions e escopo de atuação, refinando o comportamento do Atlas Reasoning Engine e reduzindo desvios de tópico',
+        'job1.ai3': 'Desenvolvimento de Agent Actions customizadas com Apex (@InvocableMethod), Flows autolançados e Prompt Templates no Prompt Builder, conectando agentes a sistemas externos via APIs REST',
+        'job1.ai4': 'Grounding de respostas com Data Cloud, Salesforce Knowledge e Agentforce Data Library (RAG), garantindo respostas contextualizadas a partir de dados confiáveis do CRM',
+        'job1.ai5': 'Guardrails com Einstein Trust Layer (mascaramento de dados sensíveis, detecção de toxicidade, zero data retention), Agent User e permissões de menor privilégio em conformidade com a LGPD',
+        'job1.ai6': 'Deploy de agentes via Messaging for In-App and Web (MIAW), Embedded Service e Experience Cloud, com escalonamento para atendentes humanos via Omni-Channel e handoff contextualizado',
+        'job1.ai7': 'Migração de Einstein Bots legados para Agentforce, substituindo fluxos de diálogo rígidos por agentes baseados em LLM',
+        'job1.ai8': 'Testes com Agentforce Testing Center (testes em lote de utterances), monitoramento de sessões e iteração contínua de prompts e instruções',
+        'job1.ai9': 'Integração de agentes a aplicações externas via Agent API e versionamento de metadados em pipelines CI/CD com SFDX e Agentforce DX',
+        'footer.location': 'Brasília, Brasil · Aberto a trabalho remoto',
         'footer.rights': '© 2026 Pedro Ferreira – Todos os Direitos Reservados'
     },
     en: {
         'nav.hero': 'Home', 'nav.perfil': 'Profile', 'nav.experiencia': 'Journey',
-        'nav.comunidade': 'Community', 'nav.skills': 'Skills', 'nav.certs': 'Certifications',
+        'nav.comunidade': 'Projects', 'nav.skills': 'Skills', 'nav.certs': 'Certifications',
         'nav.formacao': 'Education', 'nav.idiomas': 'Languages',
-        'hero.role': 'Senior Salesforce Developer | Solution Architecture &amp; Mentorship',
+        'ui.more': 'Show more', 'ui.less': 'Show less',
+        'hero.role': 'Senior Salesforce Developer',
         'hero.pokerTitle': 'Free Planning Poker',
         'hero.pokerSub': 'Real-time estimation for agile teams · no sign-up',
-        'perfil.eyebrow': '01 · Profile', 'perfil.title': 'Professional Profile',
-        'perfil.body': 'Senior Salesforce Developer with 5+ years designing and deploying enterprise solutions. Expertise in Apex architecture, Lightning Web Components and API integrations. Proven track record of cutting critical incidents by 40%, optimizing systems managing millions of records, and mentoring developers with 2 promotions to mid-level positions.',
+        'perfil.eyebrow': '01 · Profile', 'perfil.title': 'Professional Summary',
+        'perfil.body': 'Senior Salesforce Developer with 5+ years of hands-on experience building scalable enterprise solutions on Sales Cloud, Service Cloud and Experience Cloud, with a recent focus on the technical implementation of <strong>autonomous AI agents with Agentforce</strong>: Topics and Instructions, Agent Actions (Apex, Flow and Prompt Templates), grounding with Data Cloud and Knowledge, Einstein Trust Layer guardrails and deployment to digital channels with Omni-Channel escalation. Strong in Apex, LWC, Visualforce and Flows, Salesforce data modeling, governor limits, performance optimization and REST/SOAP integrations. Focused on clean, reusable code (Trigger Framework, design patterns), automated testing (85%+ coverage) and DevOps with Git and Copado, working closely with Admins and business stakeholders to turn requirements into technical solutions.',
+        'stat.years': 'years of experience', 'stat.users': 'users served', 'stat.orgs': 'production orgs',
+        'stat.integrations': 'integration projects', 'stat.coverage': 'test coverage', 'stat.performance': 'org performance gain',
+        'perfil.highlights': '<strong>Key achievements:</strong> Agentforce agents in production with Topics, Actions and Data Cloud grounding, automating service previously handled by humans · reduced critical production issues by 35% and improved org performance by 60% through scalable patterns and SOQL optimization · 15+ enterprise integration projects · mentored 3 junior developers, 2 promoted to mid-level.',
         'experiencia.eyebrow': '02 · Journey', 'experiencia.title': 'Professional Experience',
-        'job1.title': 'Senior Salesforce Developer – OSF Digital', 'job1.period': 'Oct 2022 – Present (3.9 years)', 'job1.company': 'Remote',
-        'job1.li1': 'Architected a Trigger Framework with bulkification and async processing; cut a 4+ hour nightly batch to 45 minutes (81% improvement); reduced CPU usage by 40%',
-        'job1.li2': 'Designed enterprise LWC components with caching and LMS integration serving 5,000+ users; improved UI responsiveness by 50%',
-        'job1.li3': 'Implemented REST/SOAP API integrations, reducing failure rates from 8% to 1.2% with 99.7% uptime reliability',
-        'job1.li4': 'Optimized 50+ production orgs through SOQL analysis and indexing; cut incident response time by 40%',
-        'job1.li5': 'Established standards with 85%+ test coverage and a CI/CD pipeline; reduced year-over-year production bugs by 45%',
-        'job1.li6': 'Mentored 3 junior developers; successfully promoted 2 to mid-level positions',
-        'job2.title': 'Salesforce Developer (Junior → Mid-level) – Sottelli', 'job2.period': 'Jan 2021 – Sep 2022 (1.7 years)', 'job2.company': 'Remote',
-        'job2.li1': 'Promoted from intern to junior developer in 6 months, driven by rapid technical growth and platform expertise',
-        'job2.li2': 'Delivered 8+ production features with a 99.9% deployment success rate',
-        'job2.li3': 'Optimized processes with Flow, saving 3+ hours/week per user and improving adoption by 25%',
-        'job2.li4': 'Contributed to security governance, reducing unauthorized access attempts by 70%',
-        'job2.li5': 'Took part in code reviews and pair programming, quickly internalizing Apex and LWC best practices',
-        'comunidade.eyebrow': '07 · Community', 'comunidade.title': 'Community &amp; Innovation',
-        'comunidade.box1': '<strong>Hackathon – OSF Digital Hackathon (2024):</strong> Built an AI-driven prioritization system using Web-to-Case and NLP to analyze customer sentiment; automated urgency classification (P1-P3); improved SLA compliance and first-response time by 35%.',
-        'comunidade.box2': '<strong>Active Interest:</strong> Seeking participation in Salesforce Agentforce hackathons to expand expertise in autonomous AI agents and agentic development patterns.',
+        'job1.title': 'Senior Salesforce Developer – OSF Digital', 'job1.period': 'Oct 2022 – Present', 'job1.company': 'Remote',
+        'job1.li1': 'Develop and deliver enterprise Salesforce solutions (Sales Cloud, Service Cloud, Experience Cloud) for 5,000+ users with multi-million-record datasets',
+        'job1.li2': 'Design custom data models and write high-performance, bulkified Apex with a Trigger Framework, design patterns and asynchronous processing (Queueable, Batch, Scheduled), staying within governor limits',
+        'job1.li3': 'Build reusable Lightning Web Components with client-side caching, LMS, responsive design and accessibility standards; maintain and modernize Visualforce pages',
+        'job1.li4': 'Automate business processes with record-triggered, scheduled and autolaunched Flows, choosing between declarative and programmatic approaches',
+        'job1.li5': 'Build REST/SOAP integrations with third-party systems using Named Credentials, OAuth 2.0, Platform Events and Change Data Capture, with error handling, retries and rate limiting',
+        'job1.li6': 'Optimize org performance through SOQL tuning, selective queries and indexing; cut production incident response time by 40% through root cause analysis',
+        'job1.li7': 'Enforce clean, reusable code through code reviews and PMD analysis; maintain 85%+ test coverage with automated Apex unit tests; mentor junior developers',
+        'job1.li8': 'Manage source control and release pipelines with Git, Copado, Flosum and SFDX across 50+ production orgs',
+        'job1.li9': 'Partner with Salesforce Admins and business stakeholders to refine requirements into technical designs and estimates',
+        'job2.title': 'Salesforce Developer (Junior → Mid-level) – Sottelli', 'job2.period': 'Jan 2021 – Sep 2022', 'job2.company': 'Remote',
+        'job2.li1': 'Promoted from intern to developer in 6 months; built features with Flows, Process Builder, Apex and LWC',
+        'job2.li2': 'Delivered 8+ client features and migrated legacy Aura components to LWC, improving performance and maintainability',
+        'job2.li3': 'Worked in Agile/Scrum teams, with pair programming and code reviews alongside senior developers',
+        'comunidade.eyebrow': '07 · Projects', 'comunidade.title': 'Personal Projects',
         'comunidade.box3': '<strong>Open project – Planning Poker:</strong> A free, real-time estimation tool for agile teams, no sign-up required (Next.js + Supabase Realtime). <a href="/poker/">Try it here →</a>',
         'skills.eyebrow': '03 · Skills', 'skills.title': 'Technical Skills',
-        'skill1.title': 'Apex Development', 'skill1.body': 'Trigger Framework, Bulkification, Async Processing, SOQL Optimization, Apex Testing, TDD',
-        'skill2.title': 'Frontend', 'skill2.body': 'Lightning Web Components, Visualforce, Responsive Design, Client-side Caching, LMS',
-        'skill3.title': 'Integration &amp; APIs', 'skill3.body': 'REST/SOAP APIs, Async Callouts, Error Handling, Platform Events, Change Data Capture',
-        'skill4.title': 'Salesforce Platforms', 'skill4.body': 'Sales Cloud, Service Cloud, Experience Cloud, Security Models, Architecture',
-        'skill5.title': 'DevOps &amp; Quality', 'skill5.body': 'CI/CD Pipelines, Git/GitHub, Copado, SFDX, Code Review, Design Patterns',
-        'skill6.title': 'Performance', 'skill6.body': 'Governor Limits, Database Indexing, Query Optimization, Batch Processing, Monitoring',
+        'skill1.title': 'Agentforce &amp; Generative AI', 'skill1.body': 'Agentforce Builder, Topics &amp; Instructions, Agent Actions, Prompt Builder &amp; Prompt Templates, Atlas Reasoning Engine, Einstein Trust Layer, Data Cloud Grounding / RAG, Data Library, Testing Center, Agent API, Agentforce DX, Einstein Bots, Prompt Engineering',
+        'skill2.title': 'Apex, Flows &amp; Back-end', 'skill2.body': 'Apex, Async Apex (Queueable, Batch, Scheduled), Trigger Framework, Design Patterns, Flows (record-triggered, scheduled, autolaunched), SOQL/SOSL, Bulkification, Governor Limits',
+        'skill3.title': 'Front-end', 'skill3.body': 'Lightning Web Components, Visualforce, JavaScript, TypeScript, HTML5, CSS3, LMS, Accessibility',
+        'skill4.title': 'Integrations', 'skill4.body': 'REST, SOAP, Named Credentials, OAuth 2.0, Platform Events, Change Data Capture, Webhooks',
+        'skill5.title': 'Salesforce Platform', 'skill5.body': 'Sales Cloud, Service Cloud, Experience Cloud, Data Cloud, Knowledge, Omni-Channel, MIAW, Data Modeling, Security &amp; Sharing Model',
+        'skill6.title': 'DevOps &amp; Quality', 'skill6.body': 'Git, GitHub, Copado, Flosum, SFDX, CI/CD, Apex Unit Testing / TDD, Code Review, PMD',
         'certs.eyebrow': '04 · Certifications', 'certs.title': 'Professional Certifications',
-        'formacao.eyebrow': '05 · Education', 'formacao.title': 'Education &amp; Learning',
-        'formacao.box1': '<strong>B.Sc. – Systems Analysis and Development</strong> | GRAN University | Expected completion: Dec 2026',
-        'formacao.box2': '<strong>Postgraduate – Software Architecture for Large-Scale Data</strong> | In Progress | 2027',
+        'formacao.eyebrow': '05 · Education', 'formacao.title': 'Education',
+        'formacao.box1': '<strong>Bachelor\'s Degree – Systems Analysis and Development</strong> | GRAN University | Expected December 2026',
+        'formacao.box2': '<strong>Postgraduate – Software Architecture for Large-Scale Data Environments</strong> | In progress | 2027',
         'idiomas.eyebrow': '06 · Languages', 'idiomas.title': 'Languages',
         'idiomas.box': '<strong>Portuguese:</strong> Native &nbsp;|&nbsp; <strong>English:</strong> Advanced (Technical &amp; Professional)',
-        'footer.location': 'Brazil, Brasília - DF',
+        'job1.groupAi': 'Agentforce &amp; Agentic AI',
+        'job1.groupPlatform': 'Platform Development',
+        'job1.ai1': 'End-to-end technical implementation of autonomous agents with Agentforce (Agentforce Service Agent and custom agents) for customer service and process automation, from development to production deployment',
+        'job1.ai2': 'Agent configuration in Agentforce Builder: Topics, intent classification, Instructions and scope, refining Atlas Reasoning Engine behavior and reducing topic drift',
+        'job1.ai3': 'Custom Agent Actions built with Apex (@InvocableMethod), autolaunched Flows and Prompt Templates in Prompt Builder, connecting agents to external systems via REST APIs',
+        'job1.ai4': 'Response grounding with Data Cloud, Salesforce Knowledge and Agentforce Data Library (RAG), ensuring contextual answers based on trusted CRM data',
+        'job1.ai5': 'Guardrails with Einstein Trust Layer (sensitive data masking, toxicity detection, zero data retention), Agent User and least-privilege permissions in compliance with LGPD',
+        'job1.ai6': 'Agent deployment via Messaging for In-App and Web (MIAW), Embedded Service and Experience Cloud, with escalation to human agents through Omni-Channel and contextual handoff',
+        'job1.ai7': 'Migration of legacy Einstein Bots to Agentforce, replacing rigid dialog flows with LLM-based agents',
+        'job1.ai8': 'Testing with Agentforce Testing Center (batch utterance tests), session monitoring and continuous iteration of prompts and instructions',
+        'job1.ai9': 'Agent integration with external applications via Agent API and metadata versioning in CI/CD pipelines with SFDX and Agentforce DX',
+        'footer.location': 'Brasília, Brazil · Open to remote',
         'footer.rights': '© 2026 Pedro Ferreira – All Rights Reserved'
     }
 };
 
-/* hero-role deve caber em uma linha e medir sempre 90% da largura do nome */
+const MOBILE_QUERY = window.matchMedia('(max-width: 768px)');
+
+/* hero-role deve caber em uma linha e medir sempre 90% da largura do nome.
+   No celular não cabe legível em uma linha: o CSS deixa quebrar normalmente. */
 function fitHeroRole() {
     const nameEl = document.querySelector('.hero-name');
     const roleEl = document.querySelector('.hero-role');
     if (!nameEl || !roleEl) return;
+    if (MOBILE_QUERY.matches) {
+        roleEl.style.width = '';
+        roleEl.style.fontSize = '';
+        return;
+    }
     const targetWidth = nameEl.getBoundingClientRect().width * 0.9;
     if (targetWidth <= 0) return;
     roleEl.style.width = targetWidth + 'px';
@@ -120,6 +156,33 @@ function applyLang(lang) {
     if (codeEl) codeEl.textContent = lang === 'pt' ? 'EN' : 'PT';
     try { localStorage.setItem('siteLang', lang); } catch (e) {}
     fitHeroRole();
+    refreshMoreToggles();
+}
+
+/* Listas longas de conquistas: mostram 3 itens + "Ver mais" no celular e nos cards
+   do modo slides (o CSS decide onde esconder; na rolagem desktop a lista vem inteira). */
+const COLLAPSED_ITEMS = 3;
+document.querySelectorAll('.achievements').forEach((list) => {
+    if (list.children.length <= COLLAPSED_ITEMS) return;
+    list.classList.add('is-collapsible', 'is-collapsed');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'more-toggle';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', () => {
+        const collapsed = list.classList.toggle('is-collapsed');
+        btn.setAttribute('aria-expanded', String(!collapsed));
+        refreshMoreToggles();
+    });
+    list.after(btn);
+});
+function refreshMoreToggles() {
+    const dict = I18N[document.documentElement.dataset.lang] || I18N.pt;
+    document.querySelectorAll('.more-toggle').forEach((btn) => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const extra = btn.previousElementSibling ? btn.previousElementSibling.children.length - COLLAPSED_ITEMS : 0;
+        btn.textContent = expanded ? dict['ui.less'] : dict['ui.more'] + ' (+' + extra + ')';
+    });
 }
 const savedLang = (function () { try { return localStorage.getItem('siteLang'); } catch (e) { return null; } })();
 applyLang(savedLang === 'en' ? 'en' : 'pt');
@@ -287,18 +350,21 @@ if (isSlidesMode) {
     slides.forEach((el) => activeObserver.observe(el));
     updateDots(0);
 
-    /* entrada alternada (direita/esquerda) também na rolagem vertical, exceto com movimento reduzido */
+    /* entrada alternada (direita/esquerda) também na rolagem vertical, exceto com movimento
+       reduzido. Deslocamento curto e rápido: no celular, um deslocamento grande deixava
+       a página mais larga que a tela e áreas em branco durante a rolagem. */
     if (!prefersReducedMotion) {
+        const offset = MOBILE_QUERY.matches ? 28 : 80;
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
                 revealObserver.unobserve(entry.target);
-                gsap.to(entry.target, { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+                gsap.to(entry.target, { x: 0, opacity: 1, duration: 0.55, ease: 'power2.out', clearProps: 'transform' });
             });
-        }, { threshold: 0.12 });
+        }, { threshold: 0.02, rootMargin: '0px 0px -8% 0px' });
         slides.forEach((el, i) => {
             if (i === 0) return;
-            gsap.set(el, { x: (i % 2 === 1 ? 1 : -1) * 80, opacity: 0 });
+            gsap.set(el, { x: (i % 2 === 1 ? 1 : -1) * offset, opacity: 0 });
             revealObserver.observe(el);
         });
     }
