@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
-import { getRoomChannel } from "@/lib/realtime/channel";
-import { getSupabase } from "@/lib/supabase/client";
+import { closeRoomChannel, openRoomChannel } from "@/lib/realtime/channel";
 import { pickCurrentRound } from "@/lib/round-gossip";
 import { storeLastKnownRound } from "@/lib/round-cache";
 import {
@@ -94,9 +93,10 @@ export function useRoomChannel(
     }
 
     void (async () => {
-      const ch = await getRoomChannel(roomId, identity.participantId);
+      const ch = await openRoomChannel(roomId, identity.participantId, () => cancelled);
+      if (!ch) return;
       if (cancelled) {
-        void getSupabase().removeChannel(ch);
+        closeRoomChannel(ch);
         return;
       }
       channel = ch;
@@ -149,8 +149,7 @@ export function useRoomChannel(
       channelRef.current = null;
       trackedPayloadRef.current = null;
       if (channel) {
-        void channel.unsubscribe();
-        void getSupabase().removeChannel(channel);
+        closeRoomChannel(channel);
       }
     };
   }, [roomId, identity]);

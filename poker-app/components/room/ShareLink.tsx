@@ -7,7 +7,8 @@ export function ShareLink() {
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
-    const url = `${window.location.origin}${window.location.pathname}`;
+    // A sala é identificada pela query string (/poker/sala/?id=...).
+    const url = `${window.location.origin}${window.location.pathname}${window.location.search}`;
     await navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

@@ -9,6 +9,8 @@ const I18N = {
         'nav.comunidade': 'Comunidade', 'nav.skills': 'Competências', 'nav.certs': 'Certificações',
         'nav.formacao': 'Formação', 'nav.idiomas': 'Idiomas',
         'hero.role': 'Desenvolvedor Salesforce Sênior | Arquitetura de Soluções &amp; Mentoria',
+        'hero.pokerTitle': 'Planning Poker gratuito',
+        'hero.pokerSub': 'Estimativas em tempo real para times ágeis · sem cadastro',
         'perfil.eyebrow': '01 · Perfil', 'perfil.title': 'Perfil Profissional',
         'perfil.body': 'Desenvolvedor Salesforce Sênior com 5+ anos projetando e implantando soluções enterprise. Expertise em arquitetura Apex, Lightning Web Components e integrações de APIs. Histórico comprovado de redução de 40% em incidentes críticos, otimização de sistemas gerenciando milhões de registros e mentoria de desenvolvedores com 2 promoções para posições mid-level.',
         'experiencia.eyebrow': '02 · Trajetória', 'experiencia.title': 'Experiência Profissional',
@@ -50,6 +52,8 @@ const I18N = {
         'nav.comunidade': 'Community', 'nav.skills': 'Skills', 'nav.certs': 'Certifications',
         'nav.formacao': 'Education', 'nav.idiomas': 'Languages',
         'hero.role': 'Senior Salesforce Developer | Solution Architecture &amp; Mentorship',
+        'hero.pokerTitle': 'Free Planning Poker',
+        'hero.pokerSub': 'Real-time estimation for agile teams · no sign-up',
         'perfil.eyebrow': '01 · Profile', 'perfil.title': 'Professional Profile',
         'perfil.body': 'Senior Salesforce Developer with 5+ years designing and deploying enterprise solutions. Expertise in Apex architecture, Lightning Web Components and API integrations. Proven track record of cutting critical incidents by 40%, optimizing systems managing millions of records, and mentoring developers with 2 promotions to mid-level positions.',
         'experiencia.eyebrow': '02 · Journey', 'experiencia.title': 'Professional Experience',
@@ -307,6 +311,7 @@ if (!prefersReducedMotion) {
     gsap.from('.hero-role', { opacity: 0, y: 16, duration: 0.8, delay: 0.7, ease: 'power2.out' });
     gsap.set('.hero-contact .icon-pill', { opacity: 0, y: 16 });
     gsap.to('.hero-contact .icon-pill', { opacity: 1, y: 0, duration: 0.6, delay: 1.0, stagger: 0.08, ease: 'power2.out' });
+    gsap.from('.hero-cta', { opacity: 0, y: 16, duration: 0.7, delay: 1.4, ease: 'power2.out', clearProps: 'transform' });
 }
 
 /* ===================== TILT 3D + PARALLAX INTERNO NOS CARDS ===================== */

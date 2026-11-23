@@ -306,6 +306,55 @@ html.slides-mode .hero.h-slide {
     opacity: 1;
     padding-right: 18px;
 }
+
+/* CTA do Planning Poker no hero */
+.hero-cta {
+    margin-top: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 20px 10px 10px;
+    border-radius: 16px;
+    background: var(--panel-strong);
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(14px) saturate(150%);
+    color: var(--text-primary);
+    text-decoration: none;
+    text-align: left;
+    max-width: calc(100vw - 32px);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.hero-cta:hover, .hero-cta:focus-visible {
+    border-color: var(--cyan);
+    box-shadow: 0 0 22px rgba(78,225,255,0.3);
+    transform: translateY(-2px);
+    outline: none;
+}
+.hero-cta-icon {
+    width: 44px; height: 44px; flex: none;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--grad-brand);
+    color: #fff;
+    font-size: 1.15em;
+}
+.hero-cta-text { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+.hero-cta-text strong { font-size: 1em; font-weight: 700; }
+.hero-cta-text small { font-size: 0.78em; color: var(--text-muted); }
+.hero-cta-arrow { margin-left: 4px; font-size: 0.9em; color: var(--cyan); transition: transform 0.3s ease; }
+.hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+
+/* Atalho do Planning Poker na barra do topo: pílula com texto no desktop, só ícone no mobile */
+.action-link { width: auto; padding: 0 16px; gap: 8px; border-radius: 999px; text-decoration: none; }
+.action-link .action-label { font-size: 0.8em; font-weight: 600; white-space: nowrap; }
+@media (max-width: 700px) {
+    .action-link { width: 36px; padding: 0; }
+    .action-link .action-label { display: none; }
+}
+/* Em celulares estreitos não cabe ao lado da navegação; o CTA do hero cobre o acesso. */
+@media (max-width: 480px) {
+    .topbar-actions .action-link { display: none; }
+}
 .scroll-cue {
     position: absolute;
     bottom: 64px;
@@ -644,6 +693,25 @@ html.slides-mode .achievements li { margin-bottom: 8px; font-size: 0.88em; }
 :root[data-theme="lightning"] .icon-pill .label { font-weight: 600; font-size: 0.8125em; }
 :root[data-theme="lightning"] .icon-pill:hover { background: #f3f3f3; border-color: #c9c9c9; box-shadow: var(--slds-shadow); transform: none; }
 :root[data-theme="lightning"] .icon-pill:focus-visible { outline: none; border-color: var(--slds-brand); box-shadow: var(--slds-focus); transform: none; }
+/* CTA do Planning Poker: botão "brand" do SLDS em formato de tile */
+:root[data-theme="lightning"] .hero-cta {
+    background: #fff;
+    border: 1px solid var(--slds-border);
+    border-radius: 8px;
+    box-shadow: var(--slds-shadow);
+    backdrop-filter: none;
+    color: var(--slds-brand-dark);
+}
+:root[data-theme="lightning"] .hero-cta:hover { background: #f3f3f3; border-color: #c9c9c9; box-shadow: var(--slds-shadow); transform: none; }
+:root[data-theme="lightning"] .hero-cta:focus-visible { border-color: var(--slds-brand); box-shadow: var(--slds-focus); transform: none; }
+:root[data-theme="lightning"] .hero-cta-icon { background: var(--slds-brand); border-radius: 4px; }
+:root[data-theme="lightning"] .hero-cta-text small { color: #706e6b; }
+:root[data-theme="lightning"] .hero-cta-arrow { color: var(--slds-brand); }
+:root[data-theme="lightning"] .action-link { width: auto; padding: 0 14px; background: var(--slds-brand); border-color: var(--slds-brand); color: #fff; }
+@media (max-width: 700px) {
+    :root[data-theme="lightning"] .action-link { width: 36px; padding: 0; }
+}
+:root[data-theme="lightning"] .action-link:hover { background: #014486; border-color: #014486; color: #fff; }
 :root[data-theme="lightning"] .scroll-cue { color: #444; }
 :root[data-theme="lightning"] .scroll-cue .cue-bar { background: linear-gradient(90deg, transparent, var(--slds-brand), transparent); }
 

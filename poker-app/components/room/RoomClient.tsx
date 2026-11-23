@@ -61,7 +61,10 @@ export function RoomClient({
   useEffect(() => {
     const stored = getStoredIdentity(roomId);
     if (stored) {
-      hydrate(stored);
+      // O RoomGate (1ª visita) já colocou esta identidade na store: trocar
+      // pelo objeto lido do storage reabriria o canal Realtime à toa.
+      const current = useIdentityStore.getState().identity;
+      if (current?.participantId !== stored.participantId) hydrate(stored);
       return;
     }
 
