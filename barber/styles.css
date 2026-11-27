@@ -176,9 +176,6 @@ em { font-style: italic; color: var(--muted); }
     min-height: 100svh;
     display: flex; flex-direction: column; justify-content: center;
     padding: 140px 0 48px;
-    background:
-        radial-gradient(1200px 600px at 85% 10%, #FBF9F5 0%, transparent 60%),
-        var(--bg);
 }
 .hero-inner { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .hero-title {
@@ -356,25 +353,49 @@ em { font-style: italic; color: var(--muted); }
     .card { padding: 32px 24px 24px; }
 }
 
-/* ---------- Fotos e ilustrações ---------- */
-.photo { margin: 0; overflow: hidden; border-radius: 2px; background: var(--line); }
-.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* ---------- Imagens de fundo e ilustrações ---------- */
+.hero, .has-bg { position: relative; isolation: isolate; }
+.bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: var(--bg-tint); }
+.bg img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero::before, .has-bg::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 
-.hero-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 7fr 5fr;
-    gap: clamp(32px, 6vw, 96px);
-    align-items: center;
+/* Abertura em tela cheia: véu claro à esquerda, objeto visível à direita */
+.hero { background: var(--bg); }
+.hero .bg img { object-position: 78% center; animation: settle 2.4s var(--ease) both; }
+.hero::before {
+    background:
+        linear-gradient(90deg, rgba(245,242,236,.94) 0%, rgba(245,242,236,.78) 34%, rgba(245,242,236,.12) 68%, rgba(245,242,236,0) 100%),
+        linear-gradient(0deg, rgba(245,242,236,.7) 0%, rgba(245,242,236,0) 26%);
 }
-.hero-photo { aspect-ratio: 4 / 5; max-height: 68vh; justify-self: end; width: 100%; }
-.casa-photo, .clube-photo { aspect-ratio: 3 / 2; margin-top: 48px; }
+.hero-title { font-size: clamp(48px, 6.6vw, 100px); }
+@keyframes settle { from { transform: scale(1.06); opacity: .4; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero .bg img { animation: none; } }
+
+/* Clube: foto ocupando a metade esquerda, conteúdo à direita */
+.clube { background: var(--bg-tint); min-height: 760px; display: flex; align-items: center; }
+.clube .wrap { width: 100%; }
+.clube .bg { right: 50%; }
+.clube .bg img { object-position: 32% center; }
+.clube::before { display: none; }
+.clube-panel { width: 50%; margin-left: auto; padding-left: clamp(32px, 6vw, 96px); }
+.clube-panel .section-lead { margin-bottom: 40px; }
+.clube .perks li { grid-template-columns: 180px 1fr; }
+
+/* Chamada final: pincel sob um véu claro */
+.cta { padding: clamp(120px, 16vw, 200px) 0; }
+.cta .bg img { object-position: center 40%; }
+.cta::before { background: radial-gradient(ellipse at center, rgba(245,242,236,.86) 0%, rgba(245,242,236,.74) 55%, rgba(245,242,236,.6) 100%); }
 
 .card-art { display: block; width: 100%; height: auto; margin: -8px 0 8px; color: var(--text); opacity: .85; }
 .card-art .accent { stroke: var(--accent); }
 
-@media (max-width: 860px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-photo { aspect-ratio: 4 / 3; max-height: none; }
-    .casa-photo, .clube-photo { margin-top: 36px; }
+@media (max-width: 960px) {
+    .clube { display: block; min-height: 0; padding-top: 0; }
+    .clube .bg { position: relative; inset: auto; height: 56vw; max-height: 420px; margin-bottom: clamp(56px, 10vw, 80px); }
+    .clube-panel { width: auto; padding-left: 0; }
+    .clube .perks li { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+    .hero .bg img { object-position: center 30%; }
+    .hero::before { background: linear-gradient(180deg, rgba(245,242,236,.55) 0%, rgba(245,242,236,.82) 45%, rgba(245,242,236,.94) 100%); }
 }

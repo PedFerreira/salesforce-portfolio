@@ -38,8 +38,11 @@
 
     <!-- HERO -->
     <section class="hero" id="inicio">
-        <div class="wrap hero-grid">
-        <div class="hero-inner">
+        <picture class="bg">
+            <source media="(max-width: 700px)" srcset="img/hero-800.webp">
+            <img src="img/hero-bg-1440.webp" srcset="img/hero-bg-1440.webp 1440w, img/hero-bg-2400.webp 2400w" sizes="100vw" width="2400" height="1000" alt="" fetchpriority="high">
+        </picture>
+        <div class="wrap hero-inner">
             <p class="eyebrow reveal">Barbearia privada · desde 2009</p>
             <h1 class="hero-title reveal">O tempo é seu.<br><em>O cuidado, nosso.</em></h1>
             <p class="hero-lead reveal">Atendimento com hora marcada, uma cadeira por vez e mestres barbeiros dedicados a cada detalhe. Um refúgio discreto para quem não abre mão do essencial.</p>
@@ -47,10 +50,6 @@
                 <a class="btn btn-accent" href="#agendar">Reservar horário</a>
                 <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
             </div>
-        </div>
-        <figure class="photo hero-photo reveal">
-            <img src="img/hero-800.webp" srcset="img/hero-800.webp 800w, img/hero-1100.webp 1100w" sizes="(max-width: 860px) 100vw, 40vw" width="1100" height="1650" alt="Pincel de barbear com cerdas claras e cabo de madeira, em luz suave" fetchpriority="high">
-        </figure>
         </div>
         <div class="wrap hero-meta reveal">
             <div><strong>15+</strong><span>anos de ofício</span></div>
@@ -65,9 +64,6 @@
             <div class="split-head reveal">
                 <p class="eyebrow">01 · A Casa</p>
                 <h2 class="title">Tradição de barbearia, <em>com a calma de um ateliê.</em></h2>
-                <figure class="photo casa-photo">
-                    <img src="img/casa-800.webp" srcset="img/casa-800.webp 800w, img/casa-1400.webp 1400w" sizes="(max-width: 960px) 100vw, 40vw" width="1400" height="933" alt="Navalha, pincel de barbear e caneca de cerâmica bege sobre fundo claro" loading="lazy" decoding="async">
-                </figure>
             </div>
             <div class="split-body reveal">
                 <p>A Casa Navalha nasceu da vontade de devolver à barbearia o que ela sempre foi: um lugar de conversa sem pressa, de mãos experientes e de rituais bem feitos. Cada atendimento é reservado só para você, do café de boas-vindas à última toalha quente.</p>
@@ -148,17 +144,15 @@
     </section>
 
     <!-- CLUBE -->
-    <section class="section section-tint" id="clube">
-        <div class="wrap split">
-            <div class="split-head reveal">
+    <section class="section has-bg clube" id="clube">
+        <picture class="bg">
+            <img src="img/clube-bg-1200.webp" srcset="img/clube-bg-1200.webp 1200w, img/clube-bg-2000.webp 2000w" sizes="100vw" width="2000" height="1333" alt="" loading="lazy" decoding="async">
+        </picture>
+        <div class="wrap">
+            <div class="clube-panel reveal">
                 <p class="eyebrow">04 · Clube</p>
                 <h2 class="title">Membros da Casa</h2>
                 <p class="section-lead">Um número limitado de vagas, para garantir agenda e atenção a cada membro.</p>
-                <figure class="photo clube-photo">
-                    <img src="img/clube-800.webp" srcset="img/clube-800.webp 800w, img/clube-1400.webp 1400w" sizes="(max-width: 960px) 100vw, 40vw" width="1400" height="933" alt="Navalha com cabo de madeira e pente de tartaruga sobre pedra clara" loading="lazy" decoding="async">
-                </figure>
-            </div>
-            <div class="split-body reveal">
                 <ul class="perks">
                     <li><strong>Agenda prioritária</strong><span>Horários reservados, inclusive aos sábados e fora do expediente.</span></li>
                     <li><strong>Cortes e barbas ilimitados</strong><span>Mantenha o visual impecável, sem contar visitas.</span></li>
@@ -218,7 +212,10 @@
     </section>
 
     <!-- AGENDAR -->
-    <section class="section cta" id="agendar">
+    <section class="section has-bg cta" id="agendar">
+        <picture class="bg">
+            <img src="img/cta-bg-1200.webp" srcset="img/cta-bg-1200.webp 1200w, img/cta-bg-1800.webp 1800w" sizes="100vw" width="1800" height="1125" alt="" loading="lazy" decoding="async">
+        </picture>
         <div class="wrap cta-inner reveal">
             <p class="eyebrow">Reserve seu horário</p>
             <h2 class="title">Sua cadeira <em>está esperando.</em></h2>
