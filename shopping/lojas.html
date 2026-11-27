@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lojas e segmentos · Gama Shopping</title>
+    <meta name="description" content="Encontre lojas, serviços e quiosques do Gama Shopping por nome, segmento ou número da loja.">
+    <meta name="theme-color" content="#00A859">
+    <link rel="icon" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>try{var t=localStorage.getItem('gs-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body id="top">
+<div class="progress" aria-hidden="true"></div>
+<gs-header current="lojas"></gs-header>
+
+<main>
+    <section class="page-hero">
+        <img class="emblem" src="img/emblema-gama.png" width="320" height="266" alt="">
+        <div class="wrap">
+            <nav class="breadcrumb" aria-label="Trilha"><a href="./">Início</a><span>/</span><span>Lojas</span></nav>
+            <p class="eyebrow">Segmentos de lojas</p>
+            <h1 class="h1" style="font-size:clamp(38px,6vw,72px)">Encontre sua <span class="hl">loja</span></h1>
+            <p class="lead">O Gama Shopping possui uma diversidade de lojas, serviços, gastronomia, bem-estar e atendimento ao cidadão (Na Hora), tudo num só lugar.</p>
+        </div>
+    </section>
+
+    <div class="toolbar">
+        <div class="wrap">
+            <div class="toolbar-row">
+                <label class="field">
+                    <i data-lucide="search"></i>
+                    <span class="sr-only">Buscar por nome, segmento ou número da loja</span>
+                    <input id="q" type="search" placeholder="Buscar por nome, segmento ou nº da loja" autocomplete="off">
+                    <button class="clear" type="button" aria-label="Limpar busca"><i data-lucide="x"></i></button>
+                </label>
+                <label class="sr-only" for="sort">Ordenar</label>
+                <select class="select" id="sort">
+                    <option value="az">A–Z</option>
+                    <option value="za">Z–A</option>
+                    <option value="loja">Nº da loja</option>
+                </select>
+            </div>
+            <div class="chips-scroll" id="chips" role="toolbar" aria-label="Filtrar por segmento"></div>
+        </div>
+    </div>
+
+    <section class="section-sm" style="padding-top:0">
+        <div class="wrap">
+            <div class="results-info"><span id="info" aria-live="polite"></span><button class="btn btn-ghost btn-sm" type="button" id="reset" hidden><i data-lucide="rotate-ccw"></i> Limpar filtros</button></div>
+            <div class="store-grid" id="grid"></div>
+            <div class="empty" id="empty" hidden>
+                <span class="ico"><i data-lucide="search-x"></i></span>
+                <h2 class="h3">Nenhuma loja encontrada</h2>
+                <p class="muted">Tente outro termo ou limpe os filtros.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div>
+                    <p class="eyebrow">Por dentro do shopping</p>
+                    <h2 class="h2">Lojas que você encontrará</h2>
+                </div>
+            </div>
+            <div class="gallery reveal">
+                <figure><img src="img/corredor-wepink-1400.webp" srcset="img/corredor-wepink-800.webp 800w, img/corredor-wepink-1400.webp 1400w" sizes="(max-width:700px) 100vw, 66vw" width="1400" height="1050" alt="Corredor do shopping com o quiosque We Pink" loading="lazy"><figcaption>We Pink · perfumes</figcaption></figure>
+                <figure><img src="img/fachada-cs-club-800.webp" width="800" height="600" alt="Fachada da loja CS Club" loading="lazy"><figcaption>CS Club</figcaption></figure>
+                <figure><img src="img/vitrine-eska-800.webp" width="800" height="600" alt="Vitrine da Eska Joias e Relógios" loading="lazy"><figcaption>Eska · joias e relógios</figcaption></figure>
+            </div>
+            <p class="muted" style="font-size:13px;margin-top:12px">* Imagens meramente ilustrativas.</p>
+        </div>
+    </section>
+</main>
+
+<gs-footer></gs-footer>
+
+<script src="js/data.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+<script src="js/lojas.js"></script>
+</body>
+</html>

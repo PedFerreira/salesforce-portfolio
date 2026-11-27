@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Natal Dourado 2026 · Gama Shopping</title>
+    <meta name="description" content="Programação do Natal Dourado 2026 no Gama Shopping.">
+    <meta name="theme-color" content="#0B2219">
+    <link rel="icon" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>try{var t=localStorage.getItem('gs-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body id="top">
+<div class="progress" aria-hidden="true"></div>
+<gs-header current="natal"></gs-header>
+
+<main>
+    <section class="section natal-hero" style="position:relative;overflow:hidden;isolation:isolate">
+        <div class="sparkles" aria-hidden="true"></div>
+        <div class="wrap natal-band" style="background:none;padding:0;border-radius:0">
+            <div>
+                <nav class="breadcrumb" aria-label="Trilha"><a href="./">Início</a><span>/</span><span>Natal 2026</span></nav>
+                <p class="eyebrow">Agenda de novembro e dezembro</p>
+                <h1 class="h1" style="font-size:clamp(42px,7vw,88px)">Natal <span class="hl-gold">Dourado</span> 2026</h1>
+                <p class="lead">O Papai Noel chegou! Confira abaixo a programação completa do Natal no Gama Shopping.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px">
+                    <a class="btn btn-white" href="#programacao">Ver programação <i data-lucide="arrow-down"></i></a>
+                    <a class="btn btn-ghost" style="--b-fg:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)" href="media/natal-dourado-2026.pdf" download><i data-lucide="file-down"></i> Baixar PDF</a>
+                </div>
+            </div>
+            <div class="natal-video">
+                <video id="natal-video" muted loop playsinline controls preload="none" data-src="media/natal-chegada-noel.mp4" poster="img/corredor-wepink-800.webp" aria-label="Vídeo: chegada do Papai Noel ao Gama Shopping"></video>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="programacao">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div>
+                    <p class="eyebrow">Programação</p>
+                    <h2 class="h2">Natal Dourado 2026</h2>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                    <a class="btn btn-ghost btn-sm" href="media/natal-dourado-2026.pdf" target="_blank" rel="noopener"><i data-lucide="maximize-2"></i> Abrir em tela cheia</a>
+                    <button class="btn btn-ghost btn-sm" type="button" data-share><i data-lucide="share-2"></i> Compartilhar</button>
+                </div>
+            </div>
+            <iframe class="pdf-frame reveal" id="pdf" title="Programação do Natal Dourado 2026 (PDF)" loading="lazy"></iframe>
+            <p class="muted" style="font-size:13px;margin-top:12px">Não conseguiu visualizar? <a href="media/natal-dourado-2026.pdf" style="color:var(--green);font-weight:600">Abra o PDF diretamente</a>.</p>
+        </div>
+    </section>
+</main>
+
+<gs-footer></gs-footer>
+
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+<script>
+(() => {
+    // Desktop: visualizador nativo de PDF. Celular: Google Docs Viewer (mesma solução do site original),
+    // pois a maioria dos navegadores móveis não exibe PDF dentro de iframe.
+    const pdf = new URL('media/natal-dourado-2026.pdf', location.href).href;
+    const mobile = matchMedia('(max-width: 820px), (pointer: coarse)').matches;
+    document.getElementById('pdf').src = mobile
+        ? 'https://docs.google.com/viewerng/viewer?embedded=true&url=' + encodeURIComponent(pdf)
+        : pdf + '#view=FitH';
+
+    // Compartilhar (Web Share API, com fallback para copiar o link)
+    document.querySelector('[data-share]').addEventListener('click', async () => {
+        const data = { title: 'Natal Dourado 2026 · Gama Shopping', url: location.href };
+        if (navigator.share) { try { await navigator.share(data); } catch (_) { /* cancelado */ } return; }
+        try { await navigator.clipboard.writeText(location.href); window.GamaToast('Link copiado!'); } catch (_) { /* sem permissão */ }
+    });
+})();
+</script>
+</body>
+</html>

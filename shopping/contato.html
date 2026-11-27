@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fale conosco · Gama Shopping</title>
+    <meta name="description" content="Entre em contato com o Gama Shopping.">
+    <meta name="theme-color" content="#00A859">
+    <link rel="icon" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>try{var t=localStorage.getItem('gs-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body id="top">
+<div class="progress" aria-hidden="true"></div>
+<gs-header current="contato"></gs-header>
+
+<main>
+    <section class="page-hero">
+        <img class="emblem" src="img/emblema-gama.png" width="320" height="266" alt="">
+        <div class="wrap">
+            <nav class="breadcrumb" aria-label="Trilha"><a href="./">Início</a><span>/</span><span>Fale conosco</span></nav>
+            <p class="eyebrow">Contate-nos</p>
+            <h1 class="h1" style="font-size:clamp(38px,6vw,72px)">Fale <span class="hl">conosco</span></h1>
+            <p class="lead">Dúvidas, sugestões ou interesse em empreender no Gama Shopping? Mande sua mensagem.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top:clamp(24px,4vw,48px)">
+        <div class="wrap contact-grid">
+            <form class="card form reveal" id="contact" novalidate>
+                <div class="form-row">
+                    <div class="input">
+                        <input id="name" name="name" type="text" placeholder=" " required minlength="2" autocomplete="name">
+                        <label for="name">Seu nome</label>
+                        <p class="error">Informe seu nome.</p>
+                    </div>
+                    <div class="input">
+                        <input id="email" name="email" type="email" placeholder=" " required autocomplete="email">
+                        <label for="email">E-mail válido</label>
+                        <p class="error">Informe um e-mail válido.</p>
+                    </div>
+                </div>
+                <div class="input">
+                    <textarea id="message" name="message" placeholder=" " required minlength="10" maxlength="1000"></textarea>
+                    <label for="message">Digite sua mensagem</label>
+                    <span class="counter" aria-hidden="true"><span id="count">0</span>/1000</span>
+                    <p class="error">Escreva uma mensagem com pelo menos 10 caracteres.</p>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+                    <p class="muted" style="margin:0;font-size:13px"><i data-lucide="info" style="display:inline;vertical-align:-3px"></i> Ao enviar, seu aplicativo de e-mail abre com a mensagem pronta.</p>
+                    <button class="btn" type="submit">Enviar <i data-lucide="send"></i></button>
+                </div>
+                <div class="form-success" role="status">
+                    <b>Obrigado!</b> Sua mensagem foi preparada no seu aplicativo de e-mail. Se nada abriu, escreva para <a href="mailto:faleconosco@gamashopping.com.br" style="color:var(--green);font-weight:600">faleconosco@gamashopping.com.br</a>.
+                </div>
+            </form>
+
+            <aside class="card reveal">
+                <h2 class="h3" style="margin-bottom:22px">Outros canais</h2>
+                <ul class="info-list">
+                    <li><span class="ico"><i data-lucide="mail"></i></span><div><b>E-mail</b><a href="mailto:faleconosco@gamashopping.com.br">faleconosco@gamashopping.com.br</a></div></li>
+                    <li><span class="ico"><i data-lucide="phone"></i></span><div><b>Telefones</b><a href="tel:+556133851522">(61) 3385-1522</a><br><a href="tel:+556134847776">(61) 3484-7776</a><br><a href="tel:+556133855814">(61) 3385-5814</a></div></li>
+                    <li><span class="ico"><i data-lucide="map-pin"></i></span><div><b>Endereço</b>Área Especial Shopping, Setor Central<br>Gama/DF · CEP 72405-561</div></li>
+                    <li><span class="ico"><i data-lucide="clock"></i></span><div><b>Atendimento</b>Seg a sáb · 10h às 22h<br><span class="place-status" data-status="lojas" style="margin-top:6px">…</span></div></li>
+                </ul>
+                <div class="socials" style="margin-top:24px">
+                    <a class="icon-btn" href="https://www.instagram.com/gamashopping/" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                    <a class="icon-btn" href="https://www.facebook.com/gamashopping/" target="_blank" rel="noopener" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                </div>
+            </aside>
+        </div>
+    </section>
+</main>
+
+<gs-footer></gs-footer>
+
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+<script>
+(() => {
+    const form = document.getElementById('contact');
+    const msg = document.getElementById('message');
+    msg.addEventListener('input', () => { document.getElementById('count').textContent = msg.value.length; });
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+            // Força o estado :user-invalid nos campos ainda não tocados
+            form.classList.add('was-validated');
+            form.querySelector(':invalid').focus();
+            return;
+        }
+        const d = new FormData(form);
+        const body = `${d.get('message')}\n\n—\n${d.get('name')}\n${d.get('email')}`;
+        location.href = 'mailto:faleconosco@gamashopping.com.br'
+            + '?subject=' + encodeURIComponent('Contato pelo site · ' + d.get('name'))
+            + '&body=' + encodeURIComponent(body);
+        form.classList.add('is-sent');
+    });
+})();
+</script>
+</body>
+</html>

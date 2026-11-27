@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gama Shopping · Esperamos você por aqui!</title>
+    <meta name="description" content="Gama Shopping, no Gama/DF: mais de 250 lojas, praça de alimentação, Na Hora, brinquedoteca e espaço pet friendly. Conceito de redesign não oficial.">
+    <meta name="theme-color" content="#00A859">
+    <link rel="icon" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="img/corredor-wepink-1400.webp" imagesrcset="img/corredor-wepink-800.webp 800w, img/corredor-wepink-1400.webp 1400w" imagesizes="100vw">
+    <link rel="stylesheet" href="css/style.css">
+    <script>try{var t=localStorage.getItem('gs-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body id="top">
+<div class="progress" aria-hidden="true"></div>
+<gs-header current="inicio"></gs-header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-media">
+            <img src="img/corredor-wepink-1400.webp" srcset="img/corredor-wepink-800.webp 800w, img/corredor-wepink-1400.webp 1400w" sizes="100vw" width="1400" height="1050" alt="" fetchpriority="high">
+            <video id="hero-video" muted loop playsinline preload="none" data-src="media/natal-chegada-noel.mp4" data-min-width="768" aria-hidden="true"></video>
+        </div>
+        <div class="wrap hero-grid">
+            <div>
+                <p class="eyebrow">Gama · DF · desde 1997</p>
+                <h1 class="h1 hero-title"><span>Esperamos você</span><span>por aqui!</span></h1>
+                <p class="lead">Mais de 250 lojas, praça de alimentação, atendimento ao cidadão com o Na Hora e diversão para toda a família, tudo num só lugar.</p>
+                <form class="search" action="lojas.html" role="search">
+                    <i data-lucide="search"></i>
+                    <label class="sr-only" for="hero-q">Buscar lojas</label>
+                    <input id="hero-q" name="q" type="search" placeholder="Encontre uma loja, produto ou serviço…" autocomplete="off">
+                    <kbd>/</kbd>
+                    <button class="btn btn-sm" type="submit">Buscar</button>
+                </form>
+                <nav class="quick" aria-label="Atalhos de segmentos">
+                    <a href="lojas.html?seg=alimentacao">Alimentação</a>
+                    <a href="lojas.html?seg=feminino">Moda feminina</a>
+                    <a href="lojas.html?seg=tecnologia">Tecnologia</a>
+                    <a href="lojas.html?seg=beleza">Beleza</a>
+                    <a href="lojas.html?seg=joias">Joias e ótica</a>
+                </nav>
+            </div>
+            <aside class="hero-card" aria-label="Agenda de novembro">
+                <small>Agenda de novembro 2026</small>
+                <strong>Chegada do Papai Noel</strong>
+                <p>O Natal Dourado já começou. Confira a programação completa.</p>
+                <div class="row">
+                    <a class="btn btn-lime btn-sm" href="natal.html">Ver programação <i data-lucide="arrow-right"></i></a>
+                    <button class="icon-btn video-toggle" type="button" data-video-toggle="hero-video" aria-label="Reproduzir vídeo"></button>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true" id="marquee"></div>
+
+    <!-- NÚMEROS -->
+    <section class="section-sm">
+        <div class="wrap stats">
+            <div class="stat reveal"><strong data-count="250" data-suffix="+">250+</strong><span>lojas e quiosques</span></div>
+            <div class="stat reveal"><strong data-count="1997" data-plain>1997</strong><span>ano de inauguração</span></div>
+            <div class="stat reveal"><strong data-count="130" data-suffix=" mil">130 mil</strong><span>habitantes na região atendida</span></div>
+            <div class="stat reveal"><strong data-count="35" data-suffix=" mil">35 mil</strong><span>seguidores no Instagram</span></div>
+        </div>
+    </section>
+
+    <!-- DESTAQUES -->
+    <section class="section" style="padding-top:0">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div>
+                    <p class="eyebrow">Nossas lojas</p>
+                    <h2 class="h2">Lojas em destaque</h2>
+                </div>
+                <div class="carousel-nav">
+                    <button class="icon-btn" type="button" data-scroll="-1" data-target="featured" aria-label="Anterior"><i data-lucide="arrow-left"></i></button>
+                    <button class="icon-btn" type="button" data-scroll="1" data-target="featured" aria-label="Próximo"><i data-lucide="arrow-right"></i></button>
+                    <a class="btn btn-ghost btn-sm" href="lojas.html">Veja mais <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="carousel reveal">
+                <div class="carousel-track" id="featured" tabindex="0" aria-label="Lojas em destaque">
+                    <article class="feature-card">
+                        <span class="tag">Moda</span>
+                        <figure><img src="img/loja-cs-club.webp" width="640" height="427" alt="Fachada da loja CS Club" loading="lazy"></figure>
+                        <div class="body">
+                            <h3 class="h3">CS Club</h3>
+                            <div class="meta"><span><i data-lucide="store"></i> Lojas 216, 217, 229, 230</span></div>
+                            <div class="actions"><a class="btn btn-ghost btn-sm" href="tel:+5561986527333"><i data-lucide="phone"></i> (61) 98652-7333</a></div>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="tag">Perfumaria</span>
+                        <figure><img src="img/loja-boticario.webp" width="640" height="427" alt="Fachada da loja O Boticário" loading="lazy"></figure>
+                        <div class="body">
+                            <h3 class="h3">O Boticário</h3>
+                            <div class="meta"><span><i data-lucide="store"></i> Lojas 122, 123, 149, 150</span></div>
+                            <div class="actions"><a class="btn btn-ghost btn-sm" href="tel:+556133853735"><i data-lucide="phone"></i> (61) 3385-3735</a></div>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="tag">Telefonia</span>
+                        <figure><img src="img/loja-claro.webp" width="640" height="427" alt="Fachada da loja Claro" loading="lazy"></figure>
+                        <div class="body">
+                            <h3 class="h3">Claro</h3>
+                            <div class="meta"><span><i data-lucide="store"></i> Lojas 391, 392</span></div>
+                            <div class="actions"><a class="btn btn-ghost btn-sm" href="tel:+556130477043"><i data-lucide="phone"></i> (61) 3047-7043</a></div>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="tag">Tecnologia</span>
+                        <figure><img src="img/loja-uti-notebooks.webp" width="640" height="426" alt="Fachada da loja UTI dos Notebooks" loading="lazy"></figure>
+                        <div class="body">
+                            <h3 class="h3">UTI dos Notebooks</h3>
+                            <div class="meta"><span><i data-lucide="store"></i> Lojas 66, 86, 87</span></div>
+                            <div class="actions">
+                                <a class="btn btn-ghost btn-sm" href="tel:+556139785994"><i data-lucide="phone"></i> (61) 3978-5994</a>
+                                <a class="btn btn-sm" style="--b-bg:#25D366" href="https://wa.me/5561998770720" target="_blank" rel="noopener"><i data-lucide="message-circle"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="tag">Celulares</span>
+                        <figure><img src="img/loja-send.webp" width="640" height="480" alt="Fachada da loja Send Celulares" loading="lazy"></figure>
+                        <div class="body">
+                            <h3 class="h3">Send Celulares</h3>
+                            <div class="meta"><span><i data-lucide="store"></i> Lojas 103, 132, 133</span></div>
+                            <div class="actions"><a class="btn btn-ghost btn-sm" href="tel:+556134840100"><i data-lucide="phone"></i> (61) 3484-0100</a></div>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="tag">Perfumaria</span>
+                        <figure><img src="img/loja-glamour.webp" width="640" height="541" alt="Fachada da Glamour Perfumaria" loading="lazy"></figure>
+                        <div class="body">
+                            <h3 class="h3">Glamour Perfumaria</h3>
+                            <div class="meta"><span><i data-lucide="store"></i> Lojas 242, 243, 259, 260</span></div>
+                            <div class="actions"><a class="btn btn-ghost btn-sm" href="tel:+5561998275944"><i data-lucide="phone"></i> (61) 99827-5944</a></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEGMENTOS -->
+    <section class="section section-alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div>
+                    <p class="eyebrow">Segmentos</p>
+                    <h2 class="h2">Tudo o que você procura, <span class="hl">num só lugar</span></h2>
+                    <p class="lead">Lojas, serviços, gastronomia, bem-estar e atendimento ao cidadão.</p>
+                </div>
+                <a class="btn btn-ghost" href="lojas.html">Ver todas as lojas <i data-lucide="arrow-right"></i></a>
+            </div>
+            <div class="segments" id="segments"></div>
+        </div>
+    </section>
+
+    <!-- NATAL -->
+    <section class="section">
+        <div class="wrap">
+            <div class="natal-band reveal">
+                <div class="sparkles" aria-hidden="true"></div>
+                <div>
+                    <p class="eyebrow">Agenda de novembro 2026</p>
+                    <h2 class="h2">Natal <span class="hl-gold">Dourado</span> 2026</h2>
+                    <p class="lead">O Papai Noel chegou ao Gama Shopping. Veja a programação completa de fim de ano, com atrações, horários especiais e muita magia para a família.</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px">
+                        <a class="btn btn-white" href="natal.html">Ver programação <i data-lucide="arrow-right"></i></a>
+                        <a class="btn btn-ghost" style="--b-fg:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)" href="media/natal-dourado-2026.pdf" target="_blank" rel="noopener"><i data-lucide="file-down"></i> Baixar PDF</a>
+                    </div>
+                </div>
+                <div class="natal-video">
+                    <video id="natal-video" muted loop playsinline controls preload="none" data-min-width="768" data-src="media/natal-chegada-noel.mp4" poster="img/corredor-wepink-800.webp" aria-label="Vídeo: chegada do Papai Noel ao Gama Shopping"></video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="section section-alt" id="servicos">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div>
+                    <p class="eyebrow">Serviços</p>
+                    <h2 class="h2">Mais que compras</h2>
+                </div>
+            </div>
+            <div class="bento">
+                <article class="tile tile-nahora reveal">
+                    <div class="content">
+                        <span class="ico"><i data-lucide="landmark"></i></span>
+                        <h3 class="h3" style="font-size:26px">Na Hora · Gama</h3>
+                        <p>Serviço de atendimento imediato ao cidadão, localizado no Gama Shopping.</p>
+                        <div class="hours">
+                            <div><span>Segunda a sexta</span><b>7h30 às 19h</b></div>
+                            <div><span>Emissão de senhas</span><b>até 18h30</b></div>
+                        </div>
+                        <span class="place-status" data-status="nahora">…</span>
+                        <div class="foot">
+                            <a class="btn btn-lime" href="https://www.nahora.df.gov.br/na-hora-gama-2024/" target="_blank" rel="noopener">Agendamento <i data-lucide="external-link"></i></a>
+                            <a class="btn btn-ghost" style="--b-fg:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)" href="tel:+556122441156"><i data-lucide="phone"></i> (61) 2244-1156</a>
+                        </div>
+                    </div>
+                    <figure><img src="img/na-hora.webp" width="551" height="653" alt="Entrada do Na Hora no Gama Shopping" loading="lazy"></figure>
+                </article>
+                <article class="tile tile-kids reveal">
+                    <span class="ico"><i data-lucide="baby"></i></span>
+                    <h3 class="h3">Brinquedoteca</h3>
+                    <p>É hora de diversão! Lugar de diversão dos pequeninos. É muito legal brincar aqui!</p>
+                </article>
+                <article class="tile tile-pet reveal">
+                    <span class="ico"><i data-lucide="paw-print"></i></span>
+                    <h3 class="h3">Pet friendly</h3>
+                    <p>O Gama Shopping adora receber seus amigos de quatro patas!</p>
+                    <div class="notice"><i data-lucide="info"></i><span>Por segurança e higiene, a entrada de animais na <b>praça de alimentação é proibida</b>, exceto cães-guia acompanhados de tutores com deficiência visual.</span></div>
+                    <div class="foot"><a class="btn btn-ghost btn-sm" href="https://www.camara.leg.br/noticias/849429-projeto-permite-o-acesso-de-animais-de-estimacao-em-estabelecimentos-abertos-ao-publico/" target="_blank" rel="noopener">Mais informações <i data-lucide="external-link"></i></a></div>
+                </article>
+                <article class="tile tile-food reveal">
+                    <span class="ico"><i data-lucide="utensils"></i></span>
+                    <h3 class="h3">Praça de alimentação</h3>
+                    <p>Ampla praça com lanches, grelhados, açaí, doces e muito mais.</p>
+                    <div class="foot"><span class="place-status" data-status="praca">…</span><a class="btn btn-ghost btn-sm" href="lojas.html?seg=alimentacao">Ver opções</a></div>
+                </article>
+                <article class="tile tile-park reveal">
+                    <span class="ico"><i data-lucide="car"></i></span>
+                    <h3 class="h3">Estacionamento e Setor D</h3>
+                    <p>Estacionamento para clientes e Setor D com funcionamento estendido, todos os dias.</p>
+                    <div class="foot"><span class="place-status" data-status="setorD">…</span></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="section">
+        <div class="wrap">
+            <div class="insta reveal">
+                <a href="https://www.instagram.com/gamashopping/" target="_blank" rel="noopener"><img src="img/instagram-35mil.webp" width="1200" height="479" alt="35 mil seguidores no Instagram. Obrigado!" loading="lazy"></a>
+                <div class="content">
+                    <p class="eyebrow">Nosso Instagram</p>
+                    <h2 class="h2" style="font-size:clamp(28px,3.4vw,40px)">35 mil seguidores. <span class="hl">Obrigado!</span></h2>
+                    <p class="lead" style="font-size:16px">Novidades, promoções e eventos em primeira mão. Siga <b>@gamashopping</b>.</p>
+                    <a class="btn insta-btn" style="margin-top:22px" href="https://www.instagram.com/gamashopping/" target="_blank" rel="noopener"><i data-lucide="instagram"></i> Seguir no Instagram</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISITE / INSTITUCIONAL -->
+    <section class="section section-alt" id="visite">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div>
+                    <p class="eyebrow">Institucional</p>
+                    <h2 class="h2">Venha nos visitar</h2>
+                </div>
+                <span class="status-pill" data-status="lojas" style="display:inline-flex"><span class="status-dot"></span><span class="txt">…</span></span>
+            </div>
+            <div class="visit">
+                <div class="card reveal">
+                    <table class="hours-table">
+                        <caption>Horário de funcionamento</caption>
+                        <tbody>
+                            <tr data-day="1,2,3,4,5,6"><th scope="row">Lojas e quiosques · seg a sáb</th><td>10h às 22h</td></tr>
+                            <tr data-day="0"><th scope="row">Lojas e quiosques · domingo</th><td class="muted">Fechado</td></tr>
+                            <tr data-day="1,2,3,4,5,6"><th scope="row">Praça de alimentação · seg a sáb</th><td>10h às 22h</td></tr>
+                            <tr data-day="0"><th scope="row">Praça de alimentação · domingo</th><td>11h às 18h</td></tr>
+                            <tr data-day="0,1,2,3,4,5,6"><th scope="row">Setor D · todos os dias</th><td>6h às 22h</td></tr>
+                        </tbody>
+                    </table>
+                    <ul class="info-list" style="margin-top:28px">
+                        <li><span class="ico"><i data-lucide="map-pin"></i></span><div><b>Endereço</b>Área Especial Shopping, Setor Central<br>Gama/DF · CEP 72405-561</div></li>
+                        <li><span class="ico"><i data-lucide="phone"></i></span><div><b>Telefones</b><a href="tel:+556133851522">(61) 3385-1522</a> · <a href="tel:+556134847776">(61) 3484-7776</a> · <a href="tel:+556133855814">(61) 3385-5814</a></div></li>
+                        <li><span class="ico"><i data-lucide="mail"></i></span><div><b>E-mail</b><a href="mailto:faleconosco@gamashopping.com.br">faleconosco@gamashopping.com.br</a></div></li>
+                    </ul>
+                </div>
+                <div class="map reveal" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.00406100635!2d-48.0627692!3d-16.0133041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9359800b757b5441%3A0xd306fe775f079c6f!2sGama%20Shopping!5e0!3m2!1spt-BR!2sbr!4v1777677196865!5m2!1spt-BR!2sbr">
+                    <div style="padding:24px">
+                        <div class="pin"><i data-lucide="map-pin"></i></div>
+                        <h3 class="h3">Geolocalização interativa</h3>
+                        <p>Setor Central do Gama, Distrito Federal</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+                            <button class="btn" type="button" data-load-map><i data-lucide="map"></i> Carregar mapa</button>
+                            <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&destination=Gama+Shopping+Gama+DF" target="_blank" rel="noopener"><i data-lucide="navigation"></i> Como chegar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal" style="margin-top:48px">
+                <h3 class="h3" style="margin-bottom:16px">Diretoria</h3>
+                <div class="board">
+                    <div class="person"><span class="avatar">LR</span><div><b>Levi Rodrigues</b><small>Administrador</small></div></div>
+                    <div class="person"><span class="avatar">R</span><div><b>Ronaldo</b><small>Vice-administrador</small></div></div>
+                    <div class="person"><span class="avatar">R</span><div><b>Ricardo</b><small>Financeiro</small></div></div>
+                    <div class="person"><span class="avatar">DR</span><div><b>Daniel Rodrigues</b><small>Marketing</small></div></div>
+                    <div class="person"><span class="avatar">C</span><div><b>Eraldo Ramos, Wilson e Samia</b><small>Conselheiros</small></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<gs-footer></gs-footer>
+
+<script src="js/data.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+<script>
+(() => {
+    const { segments, stores } = window.GAMA_DATA;
+    // Grade de segmentos com contagem de lojas
+    const count = stores.reduce((acc, s) => (acc[s.s] = (acc[s.s] || 0) + 1, acc), {});
+    document.getElementById('segments').innerHTML = segments.map((s) => `
+        <a class="segment reveal" href="lojas.html?seg=${s.slug}">
+            <span class="ico"><i data-lucide="${s.icon}"></i></span>
+            <span><b>${s.name}</b><small>${count[s.slug] || 0} ${count[s.slug] === 1 ? 'loja' : 'lojas'}</small></span>
+        </a>`).join('');
+    // Faixa com nomes de lojas (duplicada para o loop contínuo)
+    const names = stores.filter((s) => s.l).map((s) => s.n).sort(() => Math.random() - .5).slice(0, 28);
+    const track = `<div class="marquee-track">${names.map((n) => `<span>${n}</span>`).join('')}</div>`;
+    document.getElementById('marquee').innerHTML = track + track;
+    // Atalho "/" foca a busca
+    addEventListener('keydown', (e) => {
+        if (e.key === '/' && !/input|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); document.getElementById('hero-q').focus(); }
+    });
+    window.GamaIcons();
+})();
+</script>
+</body>
+</html>

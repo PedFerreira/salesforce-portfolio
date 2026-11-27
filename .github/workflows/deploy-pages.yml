@@ -2,6 +2,7 @@
 #   /        -> portfólio estático (index.html, css/, js/)
 #   /poker/  -> Planning Poker (export estático do Next.js em poker-app/)
 #   /barber/ -> site institucional de barbearia (estático, em barber/)
+#   /shopping/ -> conceito de redesign do Gama Shopping (estático, em shopping/)
 #
 # Requer, em Settings -> Pages, "Source: GitHub Actions".
 # Variáveis (Settings -> Secrets and variables -> Actions -> Variables).
@@ -67,6 +68,7 @@ jobs:
           cp -r css js _site/
           cp -r poker-app/out _site/poker
           cp -r barber _site/barber
+          cp -r shopping _site/shopping
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v6
